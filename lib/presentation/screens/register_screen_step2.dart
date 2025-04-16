@@ -1,9 +1,8 @@
+import 'package:demo_game_night/presentation/widgets/main_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../domain/cubits/auth_cubit/auth_cubit.dart';
 import '../../domain/entities/user_address.dart';
-import 'group_screen.dart';
 
 class RegisterScreenStep2 extends StatefulWidget {
   const RegisterScreenStep2({super.key});
@@ -50,7 +49,7 @@ class _RegisterScreenStep2State extends State<RegisterScreenStep2> {
           if (state is AuthSuccess) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => const GroupScreen()),
+              MaterialPageRoute(builder: (_) => MainScaffold()),
               (route) => false,
             );
           }

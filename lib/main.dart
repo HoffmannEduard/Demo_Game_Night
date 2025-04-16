@@ -4,9 +4,8 @@ import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_user_repo.dart';
-import 'package:demo_game_night/presentation/screens/group_screen.dart';
-import 'package:demo_game_night/presentation/screens/login_screen.dart';
 import 'package:demo_game_night/utilities/app_theme.dart';
+import 'package:demo_game_night/utilities/auth_gate.dart';
 // import 'package:demo_game_night/utilities/auth_persistence_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,13 +31,10 @@ class MyApp extends StatelessWidget {
         })
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Game Night App',
         theme: AppTheme.lightTheme,
-        initialRoute: '/login',
-        routes: {
-          '/login': (context) => LoginScreen(),
-          '/group': (context) => GroupScreen()
-        },
+        home: AuthGate(),
       ),
     );
   }

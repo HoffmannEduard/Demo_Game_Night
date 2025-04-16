@@ -1,5 +1,6 @@
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
+import 'package:demo_game_night/presentation/screens/login_screen.dart';
 import 'package:demo_game_night/presentation/widgets/group_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,10 @@ class GroupScreen extends StatelessWidget {
               onPressed: () {
                 context.read<AuthCubit>().logout();
                 context.read<GroupCubit>().reset();
-                Navigator.pushReplacementNamed(context, '/login');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => LoginScreen()),
+                );
               }, 
               icon: Icon(Icons.logout))
         ],
@@ -41,8 +45,6 @@ class GroupScreen extends StatelessWidget {
                 ],
               )
               )
-
-
           ]
         ],
       ),
