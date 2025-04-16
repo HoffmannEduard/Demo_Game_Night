@@ -45,6 +45,7 @@ class AuthCubit extends Cubit<AuthState> {
     } else {
       // Zustand mit Nutzerdaten auf AuthAwaitingAdress setzen
       emit(AuthAwaitingAddress(
+        id: DateTime.now().millisecondsSinceEpoch,
         username: username,
         password: password,
         firstName: firstName,
@@ -55,15 +56,10 @@ class AuthCubit extends Cubit<AuthState> {
 
 // Adresse hinzufügen über UI
   Future<void> submitAdress(UserAddress address) async {
-    if (state is! AuthAwaitingAddress) {
-      emit(AuthError('Registrierungsdaten unvollständig'));
-      return;
-    }
-
   final currentState = state as AuthAwaitingAddress;
 
-  
   final newUser = User(
+    id: DateTime.now().microsecondsSinceEpoch,
     username: currentState.username,
     password: currentState.password,
     firstName: currentState.firstName,
@@ -77,10 +73,6 @@ class AuthCubit extends Cubit<AuthState> {
 
 // User existiert, login über Anmeldung
   Future<void> login(String username, String password) async {
-
-    if (username.isEmpty || password.isEmpty) {
-      emit(AuthError('Benutzername oder Passwort fehlen'));
-    }
 
     final user = await _userRepo.getUser(username, password);
     if (user != null) {

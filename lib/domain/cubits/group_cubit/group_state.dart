@@ -9,8 +9,6 @@ sealed class GroupState extends Equatable {
 
 final class GroupInitial extends GroupState {}
 
-final class GroupLoading extends GroupState {}
-
 final class GroupLoaded extends GroupState {
   final List<Group> groups;
   const GroupLoaded(this.groups);

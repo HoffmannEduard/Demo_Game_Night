@@ -1,0 +1,102 @@
+import 'package:demo_game_night/domain/entities/game_night_event.dart';
+import 'package:demo_game_night/domain/entities/group.dart';
+import 'package:demo_game_night/domain/entities/user.dart';
+import 'package:demo_game_night/domain/entities/user_address.dart';
+
+class MockData {
+// Fake User List
+static final mockUsers = [
+  User(
+    id: 1,
+    username: "testuser1",      
+    password: "password",   
+    firstName: "Max",          
+    lastName: "Mustermann",    
+    adress: UserAddress(
+      plz: '97000',
+      street: 'Musterstraße',
+      number: '3',
+      location: 'Musterstadt'        
+    )
+  ),
+  User(
+    id: 2,
+    username: "johndoe",      
+    password: "password",   
+    firstName: "John",          
+    lastName: "Doe",    
+    adress: UserAddress(
+      plz: '97001',
+      street: 'Hauptstraße',
+      number: '10',
+      location: 'Beispielstadt'        
+    )
+  ),
+  User(
+    id: 3,
+    username: "sarah_1985",      
+    password: "password",   
+    firstName: "Sarah",          
+    lastName: "Müller",    
+    adress: UserAddress(
+      plz: '97002',
+      street: 'Feldstraße',
+      number: '25',
+      location: 'Dorfstadt'        
+    )
+  ),
+  User(
+    id: 4,
+    username: "janedoe22",      
+    password: "janepass",   
+    firstName: "Jane",          
+    lastName: "Doe",    
+    adress: UserAddress(
+      plz: '97003',
+      street: 'Bahnhofstraße',
+      number: '12',
+      location: 'Kleinstadt'        
+    )
+  ),
+  User(
+    id: 5,
+    username: "hansw",      
+    password: "password",   
+    firstName: "Hans",          
+    lastName: "Wagner",    
+    adress: UserAddress(
+      plz: '97004',
+      street: 'Kirchstraße',
+      number: '4',
+      location: 'Altstadt'        
+    )
+  )
+];
+
+// Fake Group List
+static final mockGroups = [
+  Group(
+    id: 10,
+    name: 'Fishermans Friends', 
+    members: [mockUsers[0],
+      mockUsers[1],
+      mockUsers[2]
+]),
+  Group(
+    id: 11,
+    name: 'Game Wikings',
+    members: [mockUsers[4],
+    mockUsers[1]] 
+    )
+];
+
+// Fake Game Night Events List
+static final mockGameNightEvents = [
+  GameNightEvent(
+    id: 20,
+    host: mockGroups[0].members[0],
+    name: mockGroups[0].name,
+    date: DateTime.now()
+  )
+];
+}

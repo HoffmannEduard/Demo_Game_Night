@@ -12,8 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   runApp(MyApp());
 }
 
@@ -28,7 +26,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit(userRepo)),
-        BlocProvider(create: (context) => GroupCubit(groupRepo)), 
+        BlocProvider(create: (context) {
+          final authCubit = context.read<AuthCubit>();
+          return GroupCubit(groupRepo, authCubit);
+        })
       ],
       child: MaterialApp(
         title: 'Game Night App',

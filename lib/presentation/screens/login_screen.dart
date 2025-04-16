@@ -1,4 +1,5 @@
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
+import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
 import 'package:demo_game_night/presentation/screens/register_screen_step1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,24 +26,16 @@ class _LoginScreenState extends State<LoginScreen> {
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
 
-    if (username.isEmpty || password.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Bitte alle Felder ausfüllen'))
-      );
-      return;
-    }
+    // Aufruf der Login-Methode im AuthCubit
     context.read<AuthCubit>().login(username, password);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Anmelden'),),
+      appBar: AppBar(title: const Text('Anmelden')),
       body: BlocConsumer<AuthCubit, AuthState>(
         builder: (context, state) {
-          if (state is AuthLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -61,9 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: _onLoginPressed, 
-                  child: const Text('Login')
-                  ),
-                const SizedBox(height: 24,),
+                  child: const Text('Login'),
+                ),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -79,23 +72,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
+                Text('AuthController State ist: $state') // TODO Das muss hier wieder weg
               ],
             ),
-            );
-        }, 
+          );
+        },
         listener: (context, state) {
-          if (state is AuthError) {
+          if (state is AuthSuccess) {
+            context.read<GroupCubit>().loadGroups();
+            Navigator.pushReplacementNamed(context, '/group');  // Weiterleitung zur Gruppenseite
+          } else if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message))
-            );
-          } else if (state is AuthSuccess) {
-            
-            Navigator.pushReplacementNamed(context, 
-            '/group'
+              SnackBar(content: Text(state.message)), // Zeige Fehlermeldung bei Login-Fehler
             );
           }
-        }
-        ),
+        },
+      ),
     );
   }
 }
