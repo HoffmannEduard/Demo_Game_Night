@@ -12,6 +12,7 @@ final class GroupInitial extends GroupState {}
 final class GroupLoaded extends GroupState {
   final List<Group> groups;
   const GroupLoaded(this.groups);
+
 }
 
 class GroupError extends GroupState {

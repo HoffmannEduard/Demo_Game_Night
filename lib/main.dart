@@ -1,6 +1,7 @@
 import 'package:demo_game_night/data/repositories/fake_group_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_user_repo.dart';
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
+import 'package:demo_game_night/domain/cubits/create_group_cubit/create_group_cubit.dart';
 import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_user_repo.dart';
@@ -28,12 +29,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) {
           final authCubit = context.read<AuthCubit>();
           return GroupCubit(groupRepo, authCubit);
-        })
+        }),
+        BlocProvider(create: (context) => CreateGroupCubit(groupRepo, userRepo)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Game Night App',
-        theme: AppTheme.lightTheme,
+        theme: AppTheme.boardGameTheme,
         home: AuthGate(),
       ),
     );

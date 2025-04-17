@@ -8,4 +8,7 @@ abstract class IUserRepo {
   Future<void> addUser(User user);
   
   Future<User?> getUser(String username, String password);
+
+  Future<User?> getUserByUsername(String username);
+
 }

@@ -16,17 +16,14 @@ class GroupCubit extends Cubit<GroupState> {
   
   // Alle Gruppen abrufen
   Future<void> loadGroups() async {
+    emit(GroupInitial()); // Neuer, leerer Ladezustand
   try {
     final allGroups = await _groupRepo.getGroups();
     final authState = authCubit.state;
       if(authState is AuthSuccess) {
         final userId = authState.user.id;
         final filtered = allGroups.where((g) => g.members.any((m) => m.id == userId)).toList();
-            // 3 ZEILEN WIEDER ENTFERNEN
-            print('Lade Gruppen für User $userId');
-            for (final group in allGroups) {
-            print('${group.name}: ${group.members.map((m) => m.id).toList()}');
-}
+            
         emit(GroupLoaded(filtered));
       } else {
         emit(GroupError('If Block in loadGroups nicht ausgeführt'));
@@ -35,6 +32,10 @@ class GroupCubit extends Cubit<GroupState> {
     emit(GroupError('Fehler beim Laden'));
   }
 }
+
+
+
+// Gruppen beim ausloggen auf null setzen
    void reset() {
     emit(GroupInitial());
   }

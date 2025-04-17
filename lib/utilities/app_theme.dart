@@ -77,4 +77,85 @@ class AppTheme {
       ),
     );
   }
+
+
+  static ThemeData get boardGameTheme {
+    return ThemeData(
+      brightness: Brightness.light,
+      primaryColor: const Color(0xFF8B5E3C), // Dunkles Holzbraun
+      scaffoldBackgroundColor: const Color(0xFFF5EBD8), // Pergament-Beige
+
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: const Color(0xFF8B5E3C),
+        brightness: Brightness.light,
+        primary: const Color(0xFF8B5E3C), // Holzbraun
+        secondary: const Color(0xFFB3925F), // Helleres Lederbraun
+        error: const Color(0xFFAF302D), // Dunkles Rubinrot
+        surface: const Color(0xFFF5EBD8),
+      ),
+
+      textTheme: const TextTheme(
+        headlineLarge: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w800,
+          color: Color(0xFF4E342E), // Dunkler Holzton
+          fontFamily: 'Cinzel', // Stilisiertes Mittelalter-Feeling
+        ),
+        bodyLarge: TextStyle(
+          fontSize: 16,
+          color: Color(0xFF3E2723),
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 14,
+          color: Color(0xFF5D4037),
+        ),
+      ),
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFB3925F),
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: Color(0xFF8B5E3C), width: 1.5),
+          ),
+        ),
+      ),
+
+      inputDecorationTheme: const InputDecorationTheme(
+        filled: true,
+        fillColor: Color(0xFFEFE6D1), // Vergilbtes Papier
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderSide: BorderSide(color: Color(0xFF8B5E3C)),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        hintStyle: TextStyle(color: Color(0xFF6D4C41)),
+        labelStyle: TextStyle(color: Color(0xFF6D4C41)),
+      ),
+
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Color(0xFF8B5E3C),
+        foregroundColor: Colors.white,
+        elevation: 2,
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Cinzel',
+          color: Colors.white,
+        ),
+      ),
+
+      cardTheme: CardTheme(
+        color: const Color(0xFFE6D3B3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 3,
+        margin: const EdgeInsets.all(10),
+      ),
+    );
+  }
 }

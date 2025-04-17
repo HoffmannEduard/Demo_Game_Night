@@ -27,4 +27,14 @@ class FakeUserRepo implements IUserRepo {
     return MockData.mockUsers.any((u) => u.username == username);
   }
 
+  @override
+Future<User?> getUserByUsername(String username) async {
+  try {
+    return MockData.mockUsers.firstWhere((u) => u.username == username);
+  } catch (_) {
+    return null;
+  }
+}
+
+
 }
