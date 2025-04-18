@@ -10,15 +10,14 @@ part 'create_group_state.dart';
 class CreateGroupCubit extends Cubit<CreateGroupState> {
   final IGroupRepo groupRepo;
   final IUserRepo userRepo;
+  final User currentUser;
 
-  CreateGroupCubit(this.groupRepo, this.userRepo) : super(CreateGroupInitial());
+  CreateGroupCubit(this.groupRepo, this.userRepo, this.currentUser) : super(CreateGroupInitial());
 
-  String _groupName = '';
   final List<User> _members = [];
 
   // Methode um den Gruppennamen zu aktualisieren
   void updateGroupName(String name) {
-    _groupName = name;
     emit(state.copyWith(groupName: name, errorMessage: null)); // UI Update
   }
 
@@ -45,8 +44,14 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
     emit(state.copyWith(members: List.from(_members)));
   }
 
-  // Methode um die Gruppe zu erstellen ZULETZT GEÄNDERT
+  // Methode um die Gruppe zu erstellen 
   Future<void> createGroup() async {
+
+    final membersWithCreator = List<User>.from(_members);
+  if (!membersWithCreator.contains(currentUser)) {
+    membersWithCreator.add(currentUser);
+  }
+
   if (state.groupName.trim().isEmpty || state.members.isEmpty) {
     emit(state.copyWith(errorMessage: 'Bitte Gruppennamen und Mitglieder angeben'));
     return;
@@ -57,7 +62,7 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
   final newGroup = Group(
     id: DateTime.now().millisecondsSinceEpoch,
     name: state.groupName,
-    members: state.members,
+    members: membersWithCreator,
   );
 
   await groupRepo.createGroup(newGroup);

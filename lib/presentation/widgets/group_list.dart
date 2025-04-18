@@ -11,7 +11,12 @@ class GroupList extends StatelessWidget {
       builder: (context, state) {
         if (state is GroupLoaded) {
           return ListView(
-            children: state.groups.map((g) => ListTile(title: Text(g.name),)).toList(),
+            children: state.groups.map((g) { 
+              return Card(
+                child: ListTile(title: Text(g.name),
+                      )
+                );
+        }).toList(),
           );
         } else if (state is! GroupLoaded){
           return Center(child: Text('State ist $state'),);
