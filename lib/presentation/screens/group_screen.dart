@@ -53,8 +53,9 @@ class GroupScreen extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Text('Dein Nutzername:'),
+                  Text('Dein Username:'),
                   Card(
+                    color: Colors.amberAccent,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SelectableText(
@@ -75,22 +76,25 @@ class GroupScreen extends StatelessWidget {
                 ],
               )
               ),
-              FloatingActionButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) {
-                      return BlocProvider(
-                        create: (_) => CreateGroupCubit(
-                          context.read<IGroupRepo>(), 
-                          context.read<IUserRepo>(),
-                          authState.user),
-                        child: CreateGroupDialog(),
-                        );
-                    } 
-                  );
-                },
-                child: Icon(Icons.group_add),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return BlocProvider(
+                          create: (_) => CreateGroupCubit(
+                            context.read<IGroupRepo>(), 
+                            context.read<IUserRepo>(),
+                            authState.user),
+                          child: CreateGroupDialog(),
+                          );
+                      } 
+                    );
+                  },
+                  child: Icon(Icons.group_add),
+                ),
               ),
 
           ]
