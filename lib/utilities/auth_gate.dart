@@ -9,10 +9,10 @@ class AuthGate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<AuthCubit>().state;
+    final state = context.read<AuthCubit>().state;
 
     if (state is AuthSuccess) {
-      return MainScaffold();
+      return MainScaffold(currentUser: state.user);
     } else {
       return LoginScreen();
     }

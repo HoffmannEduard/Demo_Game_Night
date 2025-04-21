@@ -8,7 +8,7 @@ class MockData {
 static final mockUsers = [
   User(
     id: 1,
-    username: "testuser1",      
+    username: "testuser",      
     password: "password",   
     firstName: "Max",          
     lastName: "Mustermann",    
@@ -34,7 +34,7 @@ static final mockUsers = [
   ),
   User(
     id: 3,
-    username: "sarah_1985",      
+    username: "sarah",      
     password: "password",   
     firstName: "Sarah",          
     lastName: "Müller",    
@@ -47,8 +47,8 @@ static final mockUsers = [
   ),
   User(
     id: 4,
-    username: "janedoe22",      
-    password: "janepass",   
+    username: "janedoe",      
+    password: "password",   
     firstName: "Jane",          
     lastName: "Doe",    
     adress: UserAddress(

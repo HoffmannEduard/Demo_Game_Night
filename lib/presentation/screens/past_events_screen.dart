@@ -1,7 +1,9 @@
+import 'package:demo_game_night/domain/entities/user.dart';
 import 'package:flutter/material.dart';
 
 class PastEventsScreen extends StatelessWidget {
-  const PastEventsScreen({super.key});
+  final User currentUser;
+  const PastEventsScreen({super.key, required this.currentUser});
 
   @override
   Widget build(BuildContext context) {

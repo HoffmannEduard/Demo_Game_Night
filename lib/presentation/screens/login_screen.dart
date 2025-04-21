@@ -1,7 +1,6 @@
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
-import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
 import 'package:demo_game_night/presentation/screens/register_screen_step1.dart';
-import 'package:demo_game_night/presentation/widgets/main_scaffold.dart';
+import 'package:demo_game_night/utilities/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -80,10 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         listener: (context, state) {
           if (state is AuthSuccess) {
-            context.read<GroupCubit>().loadGroups();
             Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (_) => MainScaffold()),
+                  MaterialPageRoute(builder: (_) => AuthGate()),
                   (route) => false
                 );  // Weiterleitung zur Gruppenseite
           } else if (state is AuthError) {
