@@ -94,9 +94,18 @@ static final mockGroups = [
 static final mockGameNightEvents = [
   GameNightEvent(
     id: 20,
+    groupId: 10,
     host: mockGroups[0].members[0],
-    name: mockGroups[0].name,
-    date: DateTime.now()
-  )
+    date: DateTime(2025, 5, 1, 18, 00),
+    recurrence: 14,
+    isPast: true
+  ),
+  GameNightEvent(
+    id: 21, 
+    groupId: 11, 
+    host: mockGroups[1].members[0], 
+    date: DateTime(2025, 5, 10, 20, 00), 
+    recurrence: 14, 
+    isPast: false)
 ];
 }

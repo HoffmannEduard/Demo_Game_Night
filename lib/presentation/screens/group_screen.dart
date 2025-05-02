@@ -17,6 +17,7 @@ class GroupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+//App Bar
       appBar: AppBar(
         title: const Text('Gruppen'),
         actions: [
@@ -33,8 +34,10 @@ class GroupScreen extends StatelessWidget {
           )
         ],
       ),
+//Beginn des Screens
       body: Column(
         children: [
+//Begrüßung des Users
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
@@ -64,6 +67,8 @@ class GroupScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
+//Anzeigen der Gruppen, in denen der User Mitglied ist
+//TODO aktuell Filterung im Cubit, evtl. in Repo verlegen
                 const Text('Deine Gruppen:'),
                 const Expanded(
                   child: GroupList(),
@@ -71,6 +76,7 @@ class GroupScreen extends StatelessWidget {
               ],
             ),
           ),
+//Button um neue Gruppe zu erstellen
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(

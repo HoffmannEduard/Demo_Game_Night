@@ -1,6 +1,8 @@
+import 'package:demo_game_night/data/repositories/fake_events_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_group_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_user_repo.dart';
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
+import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_user_repo.dart';
 import 'package:demo_game_night/utilities/app_theme.dart';
@@ -12,12 +14,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() async {
   final IUserRepo userRepo = FakeUserRepo();
   final IGroupRepo groupRepo = FakeGroupRepo();
+  final IEventsRepo eventsRepo = FakeEventsRepo();
 
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<IUserRepo>.value(value: userRepo,),
-        RepositoryProvider<IGroupRepo>.value(value: groupRepo,)
+        RepositoryProvider<IGroupRepo>.value(value: groupRepo,),
+        RepositoryProvider<IEventsRepo>.value(value: eventsRepo,),
+
       ], 
       child: MyApp()
     )

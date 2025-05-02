@@ -4,11 +4,13 @@ class Group {
   final int id;
   final String name;
   final List<User> members;
+  final List<int>? eventIds;
 
   Group({
     required this.id,
     required this.name, 
-    required this.members
+    required this.members,
+    this.eventIds
     });
     
 }
