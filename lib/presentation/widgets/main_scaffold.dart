@@ -1,6 +1,6 @@
+import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
 import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
 import 'package:demo_game_night/domain/entities/user.dart';
-import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
 import 'package:demo_game_night/presentation/screens/event_screen.dart';
 import 'package:demo_game_night/presentation/screens/group_screen.dart';
 import 'package:demo_game_night/presentation/screens/news_screen.dart';
@@ -29,17 +29,27 @@ void initState() {
     PastEventsScreen(currentUser: widget.currentUser),
     NewsScreen(currentUser: widget.currentUser),
   ];
+
+  _loadDataForTab(_selectedIndex);
 }
+
+void _loadDataForTab(int index) async {
+    switch (index) {
+      case 0:
+        await context.read<GroupCubit>().loadGroups();
+        break;
+      case 1:
+        await context.read<EventCubit>().loadUpcomingEvents();
+        break;
+      case 2:
+        await context.read<EventCubit>().loadPastEvents();
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) {
-          return GroupCubit(context.read<IGroupRepo>(), widget.currentUser)..loadGroups();
-        }),
-      ],
-      child: Scaffold(
+    return  Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
         children: _screens,
@@ -50,6 +60,7 @@ void initState() {
           setState(() {
             _selectedIndex = index;
           });
+           _loadDataForTab(index);
         },
         destinations: const [
           NavigationDestination(icon: Icon(Icons.group), label: 'Gruppen'),
@@ -58,7 +69,6 @@ void initState() {
           NavigationDestination(icon: Icon(Icons.newspaper), label: 'News'),
         ],
       ),
-      )
-    );
+      );
   }
 }

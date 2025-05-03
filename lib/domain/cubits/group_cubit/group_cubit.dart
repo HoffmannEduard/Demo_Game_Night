@@ -15,16 +15,12 @@ class GroupCubit extends Cubit<GroupState> {
   // Alle Gruppen abrufen
   Future<void> loadGroups() async {
     emit(GroupInitial());
-    try {
-      final allGroups = await _groupRepo.getGroups();
-      final filtered = allGroups
-          .where((g) => g.members.any((m) => m.id == currentUser.id))
-          .toList();
-
-      emit(GroupLoaded(filtered));
-    } catch (_) {
-      emit(GroupError('Fehler beim Laden'));
-    }
+  try {
+    final userGroups = await _groupRepo.getGroups(currentUser);
+    emit(GroupLoaded(userGroups));
+  } catch (_) {
+    emit(GroupError('Fehler beim Laden'));
+  }
   }
 
   // Gruppen beim Ausloggen auf null setzen

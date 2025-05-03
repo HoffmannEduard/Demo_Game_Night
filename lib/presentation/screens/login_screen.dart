@@ -72,7 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                Text('AuthController State ist: $state') // TODO Das muss hier wieder weg
               ],
             ),
           );

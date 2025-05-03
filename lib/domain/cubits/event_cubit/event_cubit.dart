@@ -20,5 +20,15 @@ class EventCubit extends Cubit<EventState> {
       emit(EventError('Fehler beim Laden der Events'));
     }
   }
+
+  Future<void> loadPastEvents() async {
+    emit(EventInitial());
+    try {
+      final pastEvents = await _eventsRepo.getPastEvents(currentUser);
+      emit(PastEventLoaded(pastEvents));
+    } catch (_) {
+      emit(EventError('Fehler beim Laden der Events'));
+    }
+  }
   
 }

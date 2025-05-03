@@ -1,4 +1,8 @@
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
+import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
+import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
+import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
+import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
 import 'package:demo_game_night/presentation/screens/login_screen.dart';
 import 'package:demo_game_night/presentation/widgets/main_scaffold.dart';
 import 'package:flutter/widgets.dart';
@@ -12,7 +16,24 @@ class AuthGate extends StatelessWidget {
     final state = context.read<AuthCubit>().state;
 
     if (state is AuthSuccess) {
-      return MainScaffold(currentUser: state.user);
+      final user = state.user;
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (ctx) => GroupCubit(
+              ctx.read<IGroupRepo>(),
+              user,
+            ),
+          ),
+          BlocProvider(
+            create: (ctx) => EventCubit(
+              ctx.read<IEventsRepo>(),
+              user,
+            ),
+          ),
+        ],
+        child: MainScaffold(currentUser: user),
+      );
     } else {
       return LoginScreen();
     }

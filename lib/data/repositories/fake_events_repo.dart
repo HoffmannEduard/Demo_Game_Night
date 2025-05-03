@@ -11,8 +11,13 @@ class FakeEventsRepo implements IEventsRepo {
 
   @override
   Future<List<GameNightEvent>> getPastEvents(User user) async {
+    final userGroups = MockData.mockGroups
+      .where((group) => group.members.any((member) => member.id == user.id))
+      .map((group) => group.id)
+      .toSet();
+
     return MockData.mockGameNightEvents
-      .where((event) => event.isPast == true)
+      .where((event) => event.isPast && userGroups.contains(event.groupId))
       .toList();
   }
 

@@ -1,5 +1,6 @@
 import 'package:demo_game_night/data/mock_data.dart';
 import 'package:demo_game_night/domain/entities/group.dart';
+import 'package:demo_game_night/domain/entities/user.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
 
 class FakeGroupRepo implements IGroupRepo {
@@ -10,7 +11,9 @@ class FakeGroupRepo implements IGroupRepo {
   }
 
   @override
-  Future<List<Group>> getGroups() async {
-    return MockData.mockGroups;
+  Future<List<Group>> getGroups(User user) async {
+    return MockData.mockGroups
+      .where((group) => group.members.any((member) => member.id == user.id))
+      .toList();
   }
 }

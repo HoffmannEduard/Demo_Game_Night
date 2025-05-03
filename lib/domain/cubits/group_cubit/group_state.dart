@@ -13,6 +13,10 @@ final class GroupLoaded extends GroupState {
   final List<Group> groups;
   const GroupLoaded(this.groups);
 
+  @override
+  @override
+  List<Object> get props => [groups];
+
 }
 
 class GroupError extends GroupState {

@@ -74,20 +74,21 @@ static final mockUsers = [
 ];
 
 // Fake Group List
-static final mockGroups = [
+static var mockGroups = [
   Group(
     id: 10,
     name: 'Fishermans Friends', 
     members: [mockUsers[0],
       mockUsers[1],
-      mockUsers[2]
+      mockUsers[2],
+      mockUsers[3]
 ]),
   Group(
     id: 11,
     name: 'Game Wikings',
-    members: [mockUsers[4],
-    mockUsers[1]] 
-    )
+    members: [mockUsers[0],
+    mockUsers[2]] 
+    ),
 ];
 
 // Fake Game Night Events List

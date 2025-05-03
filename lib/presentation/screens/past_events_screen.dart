@@ -1,4 +1,5 @@
 import 'package:demo_game_night/domain/entities/user.dart';
+import 'package:demo_game_night/presentation/widgets/past_event_view.dart';
 import 'package:flutter/material.dart';
 
 class PastEventsScreen extends StatelessWidget {
@@ -8,12 +9,10 @@ class PastEventsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Bewerte Events'),
+        appBar: AppBar(
+          title: Text('Bevorstehende Events'),
         ),
-        body: Center(
-          child: Text('Bewerte vergangene Events'),
-        ),
-    );
+        body: PastEventView(),
+      );
   }
 }

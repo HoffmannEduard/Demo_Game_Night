@@ -68,7 +68,6 @@ class GroupScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 //Anzeigen der Gruppen, in denen der User Mitglied ist
-//TODO aktuell Filterung im Cubit, evtl. in Repo verlegen
                 const Text('Deine Gruppen:'),
                 const Expanded(
                   child: GroupList(),
