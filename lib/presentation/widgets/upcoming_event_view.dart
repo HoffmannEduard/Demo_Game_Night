@@ -1,4 +1,5 @@
 import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
+import 'package:demo_game_night/presentation/screens/event_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,6 +25,15 @@ class UpcomingEventView extends StatelessWidget {
                 child: ListTile(
                   title: Text('Abend bei ${event.host.firstName}'),
                   subtitle: Text('Datum: ${event.date}'),
+                  trailing: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EventDetailScreen(event: event)) 
+                          );
+                    }, 
+                    icon: Icon(Icons.chevron_right)),
                 ),
               );
             },
