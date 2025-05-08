@@ -10,7 +10,7 @@ class PastEventsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Bevorstehende Events'),
+          title: Text('Vergangene Events'),
         ),
         body: PastEventView(),
       );

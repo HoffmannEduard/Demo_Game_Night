@@ -2,6 +2,7 @@ import 'package:demo_game_night/domain/entities/user.dart';
 
 class GameNightEvent {
   final int id;
+  final String name;
   final int groupId;
   final User host;
   final DateTime date;
@@ -11,6 +12,7 @@ class GameNightEvent {
   
 GameNightEvent({
  required this.id,
+ required this.name,
  required this.groupId,
  required this.host,
  required this.date,

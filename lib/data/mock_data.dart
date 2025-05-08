@@ -95,6 +95,7 @@ static var mockGroups = [
 static final mockGameNightEvents = [
   GameNightEvent(
     id: 20,
+    name: 'Fishermans Friends',
     groupId: 10,
     host: mockGroups[0].members[0],
     date: DateTime(2025, 5, 1, 18, 00),
@@ -103,6 +104,7 @@ static final mockGameNightEvents = [
   ),
   GameNightEvent(
     id: 21, 
+    name: 'Game Vikings',
     groupId: 11, 
     host: mockGroups[1].members[0], 
     date: DateTime(2025, 5, 10, 20, 00), 

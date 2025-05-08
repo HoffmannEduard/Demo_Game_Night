@@ -23,8 +23,19 @@ class UpcomingEventView extends StatelessWidget {
               final event = events[index];
               return Card(
                 child: ListTile(
-                  title: Text('Abend bei ${event.host.firstName}'),
-                  subtitle: Text('Datum: ${event.date}'),
+                  title: Text(event.name,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Gastgeber: ${event.host.firstName} ${event.host.lastName}',
+                      style: TextStyle(fontSize: 16),),
+                      Text('Datum: ${event.date}',
+                      style: TextStyle(fontSize: 16),),
+                    ],
+                  ),
                   trailing: IconButton(
                     onPressed: () {
                       Navigator.push(
