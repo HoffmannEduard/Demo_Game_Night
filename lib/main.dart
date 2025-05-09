@@ -17,6 +17,8 @@ void main() async {
   final IEventsRepo eventsRepo = FakeEventsRepo();
 
   runApp(
+
+    // Bietet die Repositories global an, Zugriff von jeder Seite möglich
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<IUserRepo>.value(value: userRepo,),
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+//AuthCubit wird global benötigt um den angemeldeten User zu identifizieren
     return BlocProvider(create: (context) => AuthCubit(context.read<IUserRepo>()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

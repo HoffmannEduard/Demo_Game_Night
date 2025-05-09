@@ -33,6 +33,7 @@ void initState() {
   _loadDataForTab(_selectedIndex);
 }
 
+//Beim klicken auf das Icon in der NavigationBar werden die Daten neu geladen
 void _loadDataForTab(int index) async {
     switch (index) {
       case 0:

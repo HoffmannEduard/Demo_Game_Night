@@ -100,7 +100,8 @@ static final mockGameNightEvents = [
     host: mockGroups[0].members[0],
     date: DateTime(2025, 5, 1, 18, 00),
     recurrence: 14,
-    isPast: true
+    isPast: true,
+    autoCreateNewEvent: true
   ),
   GameNightEvent(
     id: 21, 
@@ -109,6 +110,8 @@ static final mockGameNightEvents = [
     host: mockGroups[1].members[0], 
     date: DateTime(2025, 5, 10, 20, 00), 
     recurrence: 14, 
-    isPast: false)
+    isPast: false,
+    autoCreateNewEvent: false
+    )
 ];
 }

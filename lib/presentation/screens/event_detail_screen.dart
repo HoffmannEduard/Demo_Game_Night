@@ -14,12 +14,12 @@ class EventDetailScreen extends StatelessWidget {
       ),
         body: Column(
           children: [
-// Details zum Event (Datum und Adresse)
+// Details zum Event (Name, Datum und Adresse)
             Center(
               child: HostDetails(event: event)
               ),
             SizedBox(height: 8.0,),
-// Überschrift
+// Überschrift und Farbcontainer
             Container(
               color: Colors.amberAccent,
               width: double.infinity,
@@ -34,6 +34,7 @@ class EventDetailScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 24.0,),
+// TODO Usern ermöglichen Spiele vorzuschlagen
             Text('Hier stehen die Vorschläge')
           ],
           

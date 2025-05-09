@@ -17,6 +17,7 @@ class AuthGate extends StatelessWidget {
 
     if (state is AuthSuccess) {
       final user = state.user;
+//Bei erfolgreichen Login werden dem angemeldeten User Gruppen und Events zugänglich gemacht
       return MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -32,6 +33,7 @@ class AuthGate extends StatelessWidget {
             ),
           ),
         ],
+//MainScaffold bietet die NavigationBar (Navigation über Icons am unteren Bildschirmrand) an
         child: MainScaffold(currentUser: user),
       );
     } else {
