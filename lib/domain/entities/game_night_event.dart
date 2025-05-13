@@ -8,7 +8,6 @@ class GameNightEvent {
   final DateTime date;
   final int recurrence;
   final bool isPast;
-  final bool autoCreateNewEvent;
 
   
 GameNightEvent({
@@ -19,6 +18,5 @@ GameNightEvent({
  required this.date,
  required this.recurrence,
  required this.isPast,
- required this.autoCreateNewEvent
 });
 }

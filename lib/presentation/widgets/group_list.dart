@@ -1,5 +1,10 @@
+import 'package:demo_game_night/domain/cubits/create_event_cubit/create_event_cubit.dart';
+import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
 import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
 import 'package:demo_game_night/domain/entities/group.dart';
+import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
+import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
+import 'package:demo_game_night/presentation/widgets/create_event_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +23,33 @@ class GroupList extends StatelessWidget {
                   _showGroupMembers(context, g),
                 child: Card(
                   child: ListTile(title: Text(g.name),
+                  trailing: context.watch<EventCubit>().hasEventForGroup(g.id) 
+// Blendet Icon zum Erstellen von Events aus, wenn bereits ein initiales Event erstellt wurde.
+                  ? null : IconButton(
+                    onPressed: () {
+                      showDialog(
+//Gleiches Prinzip wie bei CreateGroupDialog: value(EventCubit) und BlocProvider CreateEventCubit
+                        context: context, 
+                        builder: (_) {
+                          return MultiBlocProvider(
+                            providers: [
+                              BlocProvider.value(
+                                value: context.read<EventCubit>()
+                                ),
+                              BlocProvider(
+                                create: (_) => CreateEventCubit(
+                                  group: g, 
+                                  groupRepo: context.read<IGroupRepo>(), 
+                                  eventsRepo: context.read<IEventsRepo>()
+                                  )
+                                )
+                            ], 
+                            child: CreateEventDialog(group: g));
+                        }
+                        
+                        );
+                    },
+                    icon: Icon(Icons.calendar_month)),
                         )
                   ),
               );
@@ -30,6 +62,9 @@ class GroupList extends StatelessWidget {
       }
       );
   }
+
+
+  
   void _showGroupMembers(BuildContext context, Group group) {
     showDialog(
       context: context,

@@ -26,18 +26,9 @@ class GroupScreen extends StatelessWidget {
       body: Column(
         children: [
 //Begrüßung des Users und zeigen des Usernames
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(
-              'Willkommen, ${currentUser.firstName}',
-              style: const TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text('Dein Username:'),
                 Card(
@@ -63,11 +54,14 @@ class GroupScreen extends StatelessWidget {
               ],
             ),
           ),
-//Button um neue Gruppe zu erstellen
-          Padding(
+        ],
+      ),
+      floatingActionButton: Padding(
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(
               onPressed: () {
+//Übergabe der BlocProvider (Cubits) um die darin enthaltenen Methoden nutzen zu können.
+//BlocProvider.value ist nötig, da ShowDialog einen eigenen Widget-Tree erstellt.
                 showDialog(
                   context: context,
                   builder: (_) {
@@ -93,8 +87,6 @@ class GroupScreen extends StatelessWidget {
               child: const Icon(Icons.group_add),
             ),
           ),
-        ],
-      ),
     );
   }
 }

@@ -17,7 +17,7 @@ class MainScaffold extends StatefulWidget {
 }
 
 class _MainScaffoldState extends State<MainScaffold> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   late final List<Widget> _screens;
 
 @override

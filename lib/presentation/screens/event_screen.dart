@@ -16,7 +16,21 @@ class EventScreen extends StatelessWidget {
           LogoutButton()
         ],
         ),
-        body: UpcomingEventView(),
+        body: Column(
+          children: [
+            Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              'Willkommen, ${currentUser.firstName}',
+              style: const TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+            Expanded(child: UpcomingEventView()),
+          ],
+        ),
       );
   }
 }

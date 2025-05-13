@@ -1,6 +1,7 @@
 import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class PastEventView extends StatelessWidget {
   const PastEventView({super.key});
@@ -31,7 +32,7 @@ class PastEventView extends StatelessWidget {
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 4,),
-                        Text('vom ${event.date}'),
+                        Text('Datum: ${DateFormat('dd.MM.yyyy - HH:mm').format(event.date)} Uhr'),
                         const SizedBox(height: 12,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,

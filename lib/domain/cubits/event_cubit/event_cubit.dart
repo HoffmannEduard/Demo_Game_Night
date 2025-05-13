@@ -9,16 +9,22 @@ part 'event_state.dart';
 class EventCubit extends Cubit<EventState> {
   final IEventsRepo _eventsRepo;
   final User currentUser;
+  List<GameNightEvent> _upcomingEvents = [];
   EventCubit(this._eventsRepo, this.currentUser) : super(EventInitial());
 
   Future<void> loadUpcomingEvents() async {
     emit(EventInitial());
     try {
       final upcomingEvents = await _eventsRepo.getUpcomingEvents(currentUser);
+      _upcomingEvents = upcomingEvents;
       emit(UpcomingEventLoaded(upcomingEvents));
     } catch (_) {
       emit(EventError('Fehler beim Laden der Events'));
     }
+  }
+
+  bool hasEventForGroup(int groupId) {
+    return _upcomingEvents.any((event) => event.groupId == groupId);
   }
 
   Future<void> loadPastEvents() async {

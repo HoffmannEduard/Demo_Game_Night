@@ -2,6 +2,7 @@ import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
 import 'package:demo_game_night/presentation/screens/event_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class UpcomingEventView extends StatelessWidget {
   const UpcomingEventView({super.key});
@@ -32,7 +33,7 @@ class UpcomingEventView extends StatelessWidget {
                     children: [
                       Text('Gastgeber: ${event.host.firstName} ${event.host.lastName}',
                       style: TextStyle(fontSize: 16),),
-                      Text('Datum: ${event.date}',
+                      Text('Datum: ${DateFormat('dd.MM.yyyy - HH:mm').format(event.date)} Uhr',
                       style: TextStyle(fontSize: 16),),
                     ],
                   ),
@@ -58,3 +59,4 @@ class UpcomingEventView extends StatelessWidget {
     );
   }
 }
+
