@@ -17,40 +17,53 @@ class PastEventView extends StatelessWidget {
           if (events.isEmpty) {
             return Center(child: Text('Keine bevorstehenden Events.'));
           }
-          return ListView.builder(
-            itemCount: events.length,
-            itemBuilder: (context, index) {
-              final event = events[index];
-              return Card(
-                margin: const EdgeInsets.all(16.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Bewertung: \nAbend bei ${event.host.firstName}',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 4,),
-                        Text('Datum: ${DateFormat('dd.MM.yyyy - HH:mm').format(event.date)} Uhr'),
-                        const SizedBox(height: 12,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.amberAccent,
-                                foregroundColor: Colors.black
+          return Container(
+            margin: EdgeInsets.only(top: 20, bottom: 20),
+            child: ListView.builder(
+              itemCount: events.length,
+              itemBuilder: (context, index) {
+                final event = events[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(event.name,
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                               ),
-                              child: Text('Bewerten')),
-                          ],
-                        )
-                      ],
-                    ),
-                ),
-              );
-            },
+                            ),
+                          ),
+                          Text('Gastgeber: ${event.host.firstName} ${event.host.lastName}',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,),
+                          ),
+                          const SizedBox(height: 4,),
+                          Text('Datum: ${DateFormat('dd.MM.yyyy - HH:mm').format(event.date)} Uhr',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 12,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.amberAccent,
+                                  foregroundColor: Colors.black
+                                ),
+                                child: Text('Bewerten')),
+                            ],
+                          )
+                        ],
+                      ),
+                  ),
+                );
+              },
+            ),
           );
         } else if (state is EventError) {
           return Center(child: Text(state.message));

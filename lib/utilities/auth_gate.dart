@@ -29,6 +29,7 @@ class AuthGate extends StatelessWidget {
           BlocProvider(
             create: (ctx) => EventCubit(
               ctx.read<IEventsRepo>(),
+              ctx.read<IGroupRepo>(),
               user,
             ),
           ),

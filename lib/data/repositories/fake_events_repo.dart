@@ -33,6 +33,13 @@ class FakeEventsRepo implements IEventsRepo {
       .toList();
   }
 
+  @override
+  Future<void> updateEvent(GameNightEvent updatedEvent) async {
+    final index = MockData.mockGameNightEvents.indexWhere((e) => e.id == updatedEvent.id);
+    if (index != -1) {
+      MockData.mockGameNightEvents[index] = updatedEvent;
+    }
+  }
   
 
 }

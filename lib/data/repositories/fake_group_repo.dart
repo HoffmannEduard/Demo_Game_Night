@@ -16,4 +16,9 @@ class FakeGroupRepo implements IGroupRepo {
       .where((group) => group.members.any((member) => member.id == user.id))
       .toList();
   }
+
+  @override
+  Future<Group> getGroupById(int groupId) async {
+    return MockData.mockGroups.firstWhere((g) => g.id == groupId);
+  }
 }

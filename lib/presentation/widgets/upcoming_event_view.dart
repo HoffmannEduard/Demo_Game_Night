@@ -24,18 +24,28 @@ class UpcomingEventView extends StatelessWidget {
               final event = events[index];
               return Card(
                 child: ListTile(
-                  title: Text(event.name,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold)),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Gastgeber: ${event.host.firstName} ${event.host.lastName}',
-                      style: TextStyle(fontSize: 16),),
-                      Text('Datum: ${DateFormat('dd.MM.yyyy - HH:mm').format(event.date)} Uhr',
-                      style: TextStyle(fontSize: 16),),
-                    ],
+                  title: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(event.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+                    ),
+                  ),
+                  subtitle: Container(
+                    margin: EdgeInsets.only(bottom: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Gastgeber: ${event.host.firstName} ${event.host.lastName}',
+                        style: TextStyle(fontSize: 16),),
+                        Text('Datum: ${DateFormat('dd.MM.yyyy - HH:mm').format(event.date)} Uhr',
+                        style: TextStyle(fontSize: 16),),
+                        Text('(${event.recurrence}-Tage Rhythmus)')
+                      ],
+                    ),
                   ),
                   trailing: IconButton(
                     onPressed: () {

@@ -6,4 +6,6 @@ abstract class IGroupRepo {
   Future<void> createGroup(Group newGroup);
 
   Future<List<Group>> getGroups(User user);
+
+  Future<Group> getGroupById(int groupId);
 }
