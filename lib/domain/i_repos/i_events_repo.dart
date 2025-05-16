@@ -9,4 +9,6 @@ Future<List<GameNightEvent>> getUpcomingEvents(User user);
 
 Future<List<GameNightEvent>> getPastEvents(User user);
 
+Future<void> updateEvent(GameNightEvent updatedEvent);
+
 }
