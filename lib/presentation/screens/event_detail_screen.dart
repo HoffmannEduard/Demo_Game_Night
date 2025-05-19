@@ -1,7 +1,9 @@
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_game_night/domain/cubits/game_suggestion_cubit/game_suggestion_cubit.dart';
+import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
 import 'package:demo_game_night/domain/entities/game_night_event.dart';
 import 'package:demo_game_night/domain/entities/game_suggestion.dart';
+import 'package:demo_game_night/domain/entities/game_vote.dart';
 import 'package:demo_game_night/presentation/widgets/host_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,7 +72,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     );
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -105,13 +107,46 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                 if (eventSuggestions.isEmpty) {
                   return Text('Hier stehen die Vorschläge');
                 }
-                return ListView(
-                  children: eventSuggestions
-                      .map((s) => ListTile(
-                            title: Text(s.suggestion),
-                            subtitle: Text('User ID: ${s.userId}'),
-                          ))
-                      .toList(),
+                return BlocBuilder<GameVoteCubit, List<GameVote>>(
+                  builder: (context, votes) {
+                    return ListView(
+                      children: eventSuggestions.map((s) {
+                        // Use the index in the global suggestions list as suggestionId
+                        final suggestionId = context.read<GameSuggestionCubit>().state.indexOf(s);
+                        final voteCount = votes.where((v) => v.suggestionId == suggestionId).length;
+                        return ListTile(
+                          title: Text(s.suggestion),
+                          subtitle: Text('User ID: ${s.userId}'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('$voteCount'),
+                              IconButton(
+                                icon: Icon(Icons.thumb_up),
+                                tooltip: 'Abstimmen',
+                                onPressed: () {
+                                  final authState = context.read<AuthCubit>().state;
+                                  int? userId;
+                                  if (authState is AuthSuccess) {
+                                    userId = authState.user.id;
+                                  }
+                                  if (userId != null) {
+                                    context.read<GameVoteCubit>().vote(
+                                      GameVote(
+                                        suggestionId: suggestionId,
+                                        eventId: widget.event.id,
+                                        userId: userId,
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  },
                 );
               },
             ),
