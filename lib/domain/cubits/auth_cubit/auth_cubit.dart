@@ -14,7 +14,7 @@ class AuthCubit extends Cubit<AuthState> {
   // Hier wird der Peristence Service und das IRepository per DI injiziert
   AuthCubit(this._userRepo) : super(AuthInitial());
 
-// Persistence Service integrieren um zu checken, ob jemand angemeldet ist
+  // Persistence Service integrieren um zu checken, ob jemand angemeldet ist
   /*
   Future<void> checkIfUserIsLoggedIn() async {
     final credentials = await _authPersistenceService.getUser();

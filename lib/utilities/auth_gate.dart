@@ -13,32 +13,34 @@ class AuthGate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<AuthCubit>().state;
-
-    if (state is AuthSuccess) {
-      final user = state.user;
-//Bei erfolgreichen Login werden dem angemeldeten User Gruppen und Events zugänglich gemacht
-      return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (ctx) => GroupCubit(
-              ctx.read<IGroupRepo>(),
-              user,
-            ),
-          ),
-          BlocProvider(
-            create: (ctx) => EventCubit(
-              ctx.read<IEventsRepo>(),
-              ctx.read<IGroupRepo>(),
-              user,
-            ),
-          ),
-        ],
-//MainScaffold bietet die NavigationBar (Navigation über Icons am unteren Bildschirmrand) an
-        child: MainScaffold(currentUser: user),
-      );
-    } else {
-      return LoginScreen();
-    }
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          final user = state.user;
+          //Bei erfolgreichen Login werden dem angemeldeten User Gruppen und Events zugänglich gemacht
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (ctx) => GroupCubit(
+                  ctx.read<IGroupRepo>(),
+                  user,
+                ),
+              ),
+              BlocProvider(
+                create: (ctx) => EventCubit(
+                  ctx.read<IEventsRepo>(),
+                  ctx.read<IGroupRepo>(),
+                  user,
+                ),
+              ),
+            ],
+            //MainScaffold bietet die NavigationBar (Navigation über Icons am unteren Bildschirmrand) an
+            child: MainScaffold(currentUser: user),
+          );
+        } else {
+          return LoginScreen();
+        }
+      },
+    );
   }
 }
