@@ -4,6 +4,7 @@ import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
 import 'package:demo_game_night/domain/entities/game_night_event.dart';
 import 'package:demo_game_night/domain/entities/game_suggestion.dart';
 import 'package:demo_game_night/domain/entities/game_vote.dart';
+import 'package:demo_game_night/presentation/widgets/create_game_suggestion.dart';
 import 'package:demo_game_night/presentation/widgets/host_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,47 +29,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   void _showSuggestionDialog() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Neuer Vorschlag'),
-        content: TextField(
-          controller: _controller,
-          decoration: InputDecoration(
-            labelText: 'Spielvorschlag',
-            hintText: 'Name des Spiels',
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _controller.clear();
-            },
-            child: Text('Abbrechen'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final suggestionText = _controller.text.trim();
-              final authState = context.read<AuthCubit>().state;
-              int? userId;
-              if (authState is AuthSuccess) {
-                userId = authState.user.id;
-              }
-              if (userId != null && suggestionText.isNotEmpty) {
-                context.read<GameSuggestionCubit>().addSuggestion(
-                  GameSuggestion(
-                    userId: userId,
-                    eventId: widget.event.id,
-                    suggestion: suggestionText,
-                  ),
-                );
-              }
-              Navigator.of(context).pop();
-              _controller.clear();
-            },
-          child: Text('Hinzufügen'),
-        ),
-        ],
-      ),
+      builder: (context) => create_game_suggestion(controller: _controller, widget: widget),
     );
   }
 
@@ -155,8 +116,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showSuggestionDialog,
-        child: Icon(Icons.add),
         tooltip: 'Spiel vorschlagen',
+        child: Icon(Icons.add),
       ),
     );
   }
