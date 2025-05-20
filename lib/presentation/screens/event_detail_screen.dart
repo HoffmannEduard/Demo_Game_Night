@@ -29,7 +29,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   void _showSuggestionDialog() {
     showDialog(
       context: context,
-      builder: (context) => create_game_suggestion(controller: _controller, widget: widget),
+      builder: (context) => CreateGameSuggestion(controller: _controller, widget: widget),
     );
   }
 

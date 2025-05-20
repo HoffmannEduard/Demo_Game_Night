@@ -5,8 +5,8 @@ import 'package:demo_game_night/presentation/screens/event_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class create_game_suggestion extends StatelessWidget {
-  const create_game_suggestion({
+class CreateGameSuggestion extends StatelessWidget {
+  const CreateGameSuggestion({
     super.key,
     required TextEditingController controller,
     required this.widget,
