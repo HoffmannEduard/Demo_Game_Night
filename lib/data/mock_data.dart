@@ -112,4 +112,7 @@ static final mockGameNightEvents = [
     isPast: false,
     )
 ];
+
+static final mockRatings = [];
+
 }
