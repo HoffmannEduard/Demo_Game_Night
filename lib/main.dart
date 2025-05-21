@@ -14,8 +14,14 @@ import 'package:demo_game_night/utilities/auth_gate.dart';
 // import 'package:demo_game_night/utilities/auth_persistence_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() async {
+Future<void> main() async {
+  await Supabase.initialize(
+    url: 'https://qeliofhvbnxwmzzkycms.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlbGlvZmh2Ym54d216emt5Y21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5NzM2NjYsImV4cCI6MjA2MjU0OTY2Nn0.cLgGC8eBmr0zYIrxkbxpcXZjw_EYo-xL7oa549Fd3s4',
+  );
+
   final IUserRepo userRepo = FakeUserRepo();
   final IGroupRepo groupRepo = FakeGroupRepo();
   final IEventsRepo eventsRepo = FakeEventsRepo();
