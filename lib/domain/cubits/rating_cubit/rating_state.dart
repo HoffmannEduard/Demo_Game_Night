@@ -5,14 +5,22 @@ class RatingState extends Equatable {
   final double? foodRating;
   final double? eventRating;
   final String? errorMessage;
-  final bool isSuccess;
+  final bool userRatedForEvent;
+
+  final double? avgHost;
+  final double? avgFood;
+  final double? avgEvent;
 
   const RatingState({
     this.hostRating,
     this.foodRating,
     this.eventRating,
     this.errorMessage,
-    this.isSuccess = false
+    this.userRatedForEvent = false,
+
+    this.avgHost,
+    this.avgFood,
+    this.avgEvent
   });
 
   RatingState copyWith({
@@ -20,14 +28,22 @@ class RatingState extends Equatable {
     double? foodRating,
     double? eventRating,
     String? errorMessage,
-    bool? isSuccess,
+    bool? userRatedForEvent,
+
+    double? avgHost,
+    double? avgFood,
+    double? avgEvent
   }) {
     return RatingState(
       hostRating: hostRating ?? this.hostRating,
       foodRating: foodRating ?? this.foodRating,
       eventRating: eventRating ?? this.eventRating,
       errorMessage: errorMessage ?? this.errorMessage,
-      isSuccess: isSuccess ?? this.isSuccess,
+      userRatedForEvent: userRatedForEvent ?? this.userRatedForEvent,
+
+      avgHost: avgHost ?? this.avgHost,
+      avgFood: avgFood ?? this.avgFood,
+      avgEvent: avgEvent ?? this.avgEvent
     );
   }
 
@@ -37,7 +53,10 @@ class RatingState extends Equatable {
     foodRating,
     eventRating,
     errorMessage,
-    isSuccess
+    userRatedForEvent,
+    avgEvent,
+    avgFood,
+    avgHost
   ];
 }
 

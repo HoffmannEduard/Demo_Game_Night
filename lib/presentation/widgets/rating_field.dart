@@ -16,6 +16,7 @@ class RatingField extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = context.read<RatingCubit>();
+        final hasRated = state.userRatedForEvent;
         return Column(
           children: [
             Row(
@@ -36,18 +37,19 @@ class RatingField extends StatelessWidget {
               children: [
                 Text('Gastgeber:'),
                 RatingBar(
+                  initialRating: hasRated ? (state.hostRating ?? 0.0) : 0.0,
+                  ignoreGestures: hasRated,
                   ratingWidget: RatingWidget(
                     full: Icon(Icons.star, color: Colors.yellow),
                     half: Icon(Icons.star_outline),
                     empty: Icon(Icons.star_outline),
                   ),
                   onRatingUpdate: (rating) {
-                    cubit.updateHostRating(rating);
-                    print('Gastgeber hat $rating Sterne');
+                    if (!hasRated) cubit.updateHostRating(rating);
                   },
                   itemSize: 35,
                 ),
-                Text('4.5'),
+                Text(state.avgHost?.toStringAsFixed(1) ?? "-"),
               ],
             ),
             Row(
@@ -55,18 +57,19 @@ class RatingField extends StatelessWidget {
               children: [
                 Text('Essen:'),
                 RatingBar(
+                  initialRating: hasRated ? (state.foodRating ?? 0.0) : 0.0,
+                  ignoreGestures: hasRated,
                   ratingWidget: RatingWidget(
                     full: Icon(Icons.star, color: Colors.yellow),
                     half: Icon(Icons.star_outline),
                     empty: Icon(Icons.star_outline),
                   ),
                   onRatingUpdate: (rating) {
-                    cubit.updateFoodRating(rating);
-                    print('Essen hat: $rating Sterne');
+                    if (!hasRated) cubit.updateFoodRating(rating);
                   },
                   itemSize: 35,
                 ),
-                Text('4.5'),
+                Text(state.avgFood?.toStringAsFixed(1) ?? "-"),
               ],
             ),
             Row(
@@ -74,21 +77,23 @@ class RatingField extends StatelessWidget {
               children: [
                 Text('Abend:'),
                 RatingBar(
+                  initialRating: hasRated ? (state.eventRating ?? 0.0) : 0.0,
+                  ignoreGestures: hasRated,
                   ratingWidget: RatingWidget(
                     full: Icon(Icons.star, color: Colors.yellow),
                     half: Icon(Icons.star_outline),
                     empty: Icon(Icons.star_outline),
                   ),
                   onRatingUpdate: (rating) {
-                    cubit.updateEventRating(rating);
-                    print('Abend hat: $rating Sterne');
+                    if (!hasRated) cubit.updateEventRating(rating);
                   },
                   itemSize: 35,
                 ),
-                Text('4.5'),
+                Text(state.avgEvent?.toStringAsFixed(1) ?? "-"),
               ],
             ),
             const SizedBox(height: 12),
+            if (!hasRated)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

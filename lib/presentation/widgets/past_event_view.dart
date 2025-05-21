@@ -1,6 +1,7 @@
 import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
 import 'package:demo_game_night/domain/cubits/rating_cubit/rating_cubit.dart';
 import 'package:demo_game_night/domain/entities/user.dart';
+import 'package:demo_game_night/domain/i_repos/i_rating_repo.dart';
 import 'package:demo_game_night/presentation/widgets/rating_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,8 +70,10 @@ class PastEventView extends StatelessWidget {
                         BlocProvider(
                           create: (context) => RatingCubit(
                             currentEvent: event,
-                            currentUser: currentUser
-                          ),
+                            currentUser: currentUser,
+                            ratingRepo: context.read<IRatingRepo>()
+                          )..loadAverageRatings()
+                          ..checkIfUserRatedForEvent(),
                           child: RatingField(currentUser: currentUser),
                         ),
                       ],
