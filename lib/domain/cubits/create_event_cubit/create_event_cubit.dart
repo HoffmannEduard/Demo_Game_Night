@@ -43,7 +43,6 @@ Future<void> openDatePicker(BuildContext context) async {
     );
 
     if (date != null) selectDate(date);
-    
 }
 
 Future<void> openTimePicker(BuildContext context) async {
@@ -87,7 +86,6 @@ Future<void> createInitialEvent() async {
 
     await eventsRepo.createEvent(newEvent);
     emit(state.copyWith(isSuccess: true));
-
 }
 
 }
