@@ -35,12 +35,6 @@ class AuthGate extends StatelessWidget {
               user,
             ),
           ),
-          BlocProvider(
-            create: (context) => GameSuggestionCubit(),
-          ),
-          BlocProvider(
-            create: (context) => GameVoteCubit(),
-          ),
         ],
 //MainScaffold bietet die NavigationBar (Navigation über Icons am unteren Bildschirmrand) an
         child: MainScaffold(currentUser: user),

@@ -2,6 +2,8 @@ import 'package:demo_game_night/data/repositories/fake_events_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_group_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_user_repo.dart';
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
+import 'package:demo_game_night/domain/cubits/game_suggestion_cubit/game_suggestion_cubit.dart';
+import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
 import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_user_repo.dart';
@@ -43,6 +45,12 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthCubit(context.read<IUserRepo>()),
+        ),
+        BlocProvider(
+          create: (context) => GameSuggestionCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GameVoteCubit(),
         ),
         // Add other BlocProviders here if needed
       ],
