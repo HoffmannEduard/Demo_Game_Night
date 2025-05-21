@@ -16,7 +16,7 @@ class PastEventsScreen extends StatelessWidget {
           LogoutButton()
         ],
         ),
-        body: PastEventView(),
+        body: PastEventView(currentUser: currentUser),
       );
   }
 }

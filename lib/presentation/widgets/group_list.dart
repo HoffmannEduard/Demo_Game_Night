@@ -28,7 +28,7 @@ class GroupList extends StatelessWidget {
                   ? null : IconButton(
                     onPressed: () {
                       showDialog(
-//Gleiches Prinzip wie bei CreateGroupDialog: value(EventCubit) und BlocProvider CreateEventCubit
+//Gleiches Prinzip wie bei GroupScreen: value(EventCubit) und BlocProvider CreateEventCubit
                         context: context, 
                         builder: (_) {
                           return MultiBlocProvider(
