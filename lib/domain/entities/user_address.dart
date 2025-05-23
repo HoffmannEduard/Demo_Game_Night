@@ -10,4 +10,6 @@ class UserAddress {
     required this.number,
     required this.location
 });
+
+  static empty() {}
 }

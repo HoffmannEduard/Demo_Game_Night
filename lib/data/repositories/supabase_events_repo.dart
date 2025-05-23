@@ -8,13 +8,13 @@ class SupabaseEventsRepo implements IEventsRepo {
 
   @override
   Future<void> createEvent(GameNightEvent newEvent) async {
-    await supabase.from('events').insert({
+    await supabase.from('gamenightevent').insert({
       'name': newEvent.name,
-      'group_id': newEvent.groupId,
-      'host_id': newEvent.host.id,
+      'groupid': newEvent.groupId,
+      'hostid': newEvent.host.id,
       'date': newEvent.date.toIso8601String(),
       'recurrence': newEvent.recurrence,
-      'is_past': newEvent.isPast,
+      'ispast': newEvent.isPast,
     });
   }
 
@@ -22,25 +22,25 @@ class SupabaseEventsRepo implements IEventsRepo {
   Future<List<GameNightEvent>> getUpcomingEvents(app.User user) async {
     final groupRes = await supabase
         .from('group_members')
-        .select('group_id')
+        .select('groupid')
         .eq('user_id', user.id);
 
     final groupIds = (groupRes as List).map((g) => g['group_id']).toList();
 
     final eventsRes = await supabase
-        .from('events')
-        .select('id, name, group_id, host_id, date, recurrence, is_past')
-        .inFilter('group_id', groupIds)
-        .eq('is_past', false);
+        .from('gamenightevent')
+        .select('id, name, groupid, hostid, date, recurrence, ispast')
+        .inFilter('groupid', groupIds)
+        .eq('ispast', false);
 
     return (eventsRes as List).map((e) => GameNightEvent(
       id: e['id'],
       name: e['name'],
-      groupId: e['group_id'],
+      groupId: e['groupid'],
       host: user,
       date: DateTime.parse(e['date']),
       recurrence: e['recurrence'],
-      isPast: e['is_past'],
+      isPast: e['ispast'],
     )).toList();
   }
 
@@ -48,37 +48,37 @@ class SupabaseEventsRepo implements IEventsRepo {
   Future<List<GameNightEvent>> getPastEvents(app.User user) async {
     final groupRes = await supabase
         .from('group_members')
-        .select('group_id')
+        .select('groupid')
         .eq('user_id', user.id);
 
     final groupIds = (groupRes as List).map((g) => g['group_id']).toList();
 
     final eventsRes = await supabase
-        .from('events')
-        .select('id, name, group_id, host_id, date, recurrence, is_past')
+        .from('gamenightevent')
+        .select('id, name, groupid, hostid, date, recurrence, ispast')
         .inFilter('group_id', groupIds)
-        .eq('is_past', true);
+        .eq('ispast', true);
 
     return (eventsRes as List).map((e) => GameNightEvent(
       id: e['id'],
       name: e['name'],
-      groupId: e['group_id'],
+      groupId: e['groupid'],
       host: user,
       date: DateTime.parse(e['date']),
       recurrence: e['recurrence'],
-      isPast: e['is_past'],
+      isPast: e['ispast'],
     )).toList();
   }
 
   @override
   Future<void> updateEvent(GameNightEvent updatedEvent) async {
-    await supabase.from('events').update({
+    await supabase.from('gamenightevent').update({
       'name': updatedEvent.name,
-      'group_id': updatedEvent.groupId,
-      'host_id': updatedEvent.host.id,
+      'groupid': updatedEvent.groupId,
+      'hostid': updatedEvent.host.id,
       'date': updatedEvent.date.toIso8601String(),
       'recurrence': updatedEvent.recurrence,
-      'is_past': updatedEvent.isPast,
+      'ispast': updatedEvent.isPast,
     }).eq('id', updatedEvent.id);
   }
 }
