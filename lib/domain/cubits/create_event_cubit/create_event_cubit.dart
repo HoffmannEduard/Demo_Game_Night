@@ -16,76 +16,76 @@ class CreateEventCubit extends Cubit<CreateEventState> {
   CreateEventCubit({required this.group, required this.groupRepo, required this.eventsRepo}) : super(CreateEventState());
 
 
-void selectDate(DateTime date) {
-  emit(state.copyWith(selectedDate: date));
-}
-
-void selectTime(TimeOfDay time) {
-  emit(state.copyWith(selectedTime: time));
-}
-
-bool setRecurrence(String recurrenceText) {
-  final recurrence = int.tryParse(recurrenceText);
-  if (recurrence == null || recurrence < 1 || recurrence >400) {
-    emit(state.copyWith(errorMessage: "Bitte Zahl zwischen 1 und 400 eingeben"));
-    return false;
+  void selectDate(DateTime date) {
+    emit(state.copyWith(selectedDate: date));
   }
-  emit(state.copyWith(recurrence: recurrence, errorMessage: null));
-  return true;
-}
 
-Future<void> openDatePicker(BuildContext context) async {
-  final date = await showDatePicker(
-    context: context,
-    initialDate: DateTime.now(), 
-    firstDate: DateTime.now(), 
-    lastDate: DateTime(2100)
-    );
+  void selectTime(TimeOfDay time) {
+    emit(state.copyWith(selectedTime: time));
+  }
 
-    if (date != null) selectDate(date);
-}
+  bool setRecurrence(String recurrenceText) {
+    final recurrence = int.tryParse(recurrenceText);
+    if (recurrence == null || recurrence < 1 || recurrence >400) {
+      emit(state.copyWith(errorMessage: "Bitte Zahl zwischen 1 und 400 eingeben"));
+      return false;
+    }
+    emit(state.copyWith(recurrence: recurrence, errorMessage: null));
+    return true;
+  }
 
-Future<void> openTimePicker(BuildContext context) async {
-  final time = await showTimePicker(
-    context: context, 
-    initialTime: TimeOfDay.now(),
-    builder: (BuildContext context, Widget? child) {
-      return MediaQuery(
-        data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-        child: child!,
+  Future<void> openDatePicker(BuildContext context) async {
+    final date = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(), 
+      firstDate: DateTime.now(), 
+      lastDate: DateTime(2100)
       );
-    },
-    );
 
-    if (time != null) selectTime(time);
-}
-
-Future<void> createInitialEvent() async {
-  if (state.selectedDate == null || state.selectedTime == null) {
-    emit(state.copyWith(errorMessage: 'Bitte alle Felder ausfüllen'));
-    return;
+      if (date != null) selectDate(date);
   }
 
-  emit(state.copyWith(errorMessage: null));
-  final DateTime combinedDateTime = DateTime(
-  state.selectedDate!.year,
-  state.selectedDate!.month,
-  state.selectedDate!.day,
-  state.selectedTime!.hour,
-  state.selectedTime!.minute,
-); 
-  final newEvent = GameNightEvent(
-    id: DateTime.now().microsecondsSinceEpoch, 
-    name: group.name, 
-    groupId: group.id, 
-    host: group.members.first, 
-    date: combinedDateTime, 
-    recurrence: state.recurrence!, 
-    isPast: false, 
-  );
+  Future<void> openTimePicker(BuildContext context) async {
+    final time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
+      );
 
-    await eventsRepo.createEvent(newEvent);
-    emit(state.copyWith(isSuccess: true));
-}
+      if (time != null) selectTime(time);
+  }
+
+  Future<void> createInitialEvent() async {
+    if (state.selectedDate == null || state.selectedTime == null) {
+      emit(state.copyWith(errorMessage: 'Bitte alle Felder ausfüllen'));
+      return;
+    }
+
+    emit(state.copyWith(errorMessage: null));
+    final DateTime combinedDateTime = DateTime(
+    state.selectedDate!.year,
+    state.selectedDate!.month,
+    state.selectedDate!.day,
+    state.selectedTime!.hour,
+    state.selectedTime!.minute,
+  ); 
+    final newEvent = GameNightEvent(
+      id: DateTime.now().microsecondsSinceEpoch, 
+      name: group.name, 
+      groupId: group.id, 
+      host: group.members.first, 
+      date: combinedDateTime, 
+      recurrence: state.recurrence!, 
+      isPast: false, 
+    );
+
+      await eventsRepo.createEvent(newEvent);
+      emit(state.copyWith(isSuccess: true));
+  }
 
 }

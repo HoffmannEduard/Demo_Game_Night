@@ -8,9 +8,20 @@ class SupabaseGroupRepo implements IGroupRepo {
 
   @override
   Future<void> createGroup(Group newGroup) async {
-    await supabase.from('groups').insert({
+    // 1. Insert group and get the new group id
+    final groupInsert = await supabase.from('groups').insert({
       'name': newGroup.name,
-    });
+    }).select().single();
+
+    final groupId = groupInsert['id'];
+
+    // 2. Insert members into GroupMembers
+    for (final member in newGroup.members) {
+      await supabase.from('groupmembers').insert({
+        'group_id': groupId,
+        'user_id': member.id,
+      });
+    }
   }
 
   @override
