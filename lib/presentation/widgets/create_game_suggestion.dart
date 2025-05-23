@@ -45,10 +45,12 @@ class CreateGameSuggestion extends StatelessWidget {
             if (userId != null && suggestionText.isNotEmpty) {
               context.read<GameSuggestionCubit>().addSuggestion(
                 GameSuggestion(
+                  id: 0, // Provide a suitable id value or generate one as needed
                   userId: userId,
                   eventId: widget.event.id,
                   suggestion: suggestionText,
                 ),
+                widget.event.id,
               );
             }
             Navigator.of(context).pop();
