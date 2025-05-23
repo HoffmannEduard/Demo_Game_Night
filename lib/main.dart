@@ -2,6 +2,7 @@ import 'package:demo_game_night/data/repositories/fake_events_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_group_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_rating_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_user_repo.dart';
+import 'package:demo_game_night/data/repositories/supabase_user_repo.dart';
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_game_night/domain/cubits/game_suggestion_cubit/game_suggestion_cubit.dart';
 import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
@@ -22,7 +23,7 @@ Future<void> main() async {
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlbGlvZmh2Ym54d216emt5Y21zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5NzM2NjYsImV4cCI6MjA2MjU0OTY2Nn0.cLgGC8eBmr0zYIrxkbxpcXZjw_EYo-xL7oa549Fd3s4',
   );
 
-  final IUserRepo userRepo = FakeUserRepo();
+  final IUserRepo userRepo = SupabaseUserRepo();
   final IGroupRepo groupRepo = FakeGroupRepo();
   final IEventsRepo eventsRepo = FakeEventsRepo();
   final IRatingRepo ratingRepo = FakeRatingRepo();
