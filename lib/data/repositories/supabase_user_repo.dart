@@ -9,10 +9,10 @@ class SupabaseUserRepo implements IUserRepo {
   @override
   Future<void> addUser(my_entities.User user) async {
     final addressInsert = await supabase.from('useraddress').insert({
-      'plz': user.adress.plz,
-      'street': user.adress.street,
-      'number': user.adress.number,
-      'location': user.adress.location,
+      'plz': user.address.plz,
+      'street': user.address.street,
+      'number': user.address.number,
+      'location': user.address.location,
     }).select().single();
 
     final addressId = addressInsert['id'];
@@ -22,7 +22,7 @@ class SupabaseUserRepo implements IUserRepo {
       'password': user.password,
       'firstname': user.firstName,
       'lastname': user.lastName,
-      'adress_id': addressId,
+      'address_id': addressId,
     });
   }
 
@@ -30,7 +30,7 @@ class SupabaseUserRepo implements IUserRepo {
   Future<my_entities.User?> getUser(String username, String password) async {
     final res = await supabase
         .from('users')
-        .select('id, username, password, firstname, lastname, adress_id, useraddress!users_adress_id_fkey (plz, street, number, location)')
+        .select('id, username, password, firstname, lastname, address_id, useraddress!users_address_id_fkey (plz, street, number, location)')
         .eq('username', username)
         .eq('password', password)
         .maybeSingle();
@@ -44,7 +44,7 @@ class SupabaseUserRepo implements IUserRepo {
       password: res['password'],
       firstName: res['firstname'],
       lastName: res['lastname'],
-      adress: address != null
+      address: address != null
           ? UserAddress(
               plz: address['plz'],
               street: address['street'],
@@ -69,7 +69,7 @@ class SupabaseUserRepo implements IUserRepo {
   Future<my_entities.User?> getUserByUsername(String username) async {
     final res = await supabase
         .from('users')
-        .select('id, username, password, firstname, lastname, adress_id, useraddress!users_adress_id_fkey (plz, street, number, location)')
+        .select('id, username, password, firstname, lastname, address_id, useraddress!users_address_id_fkey (plz, street, number, location)')
         .eq('username', username)
         .maybeSingle();
 
@@ -82,7 +82,7 @@ class SupabaseUserRepo implements IUserRepo {
       password: res['password'],
       firstName: res['firstname'],
       lastName: res['lastname'],
-      adress: address != null
+      address: address != null
           ? UserAddress(
               plz: address['plz'],
               street: address['street'],

@@ -13,7 +13,7 @@ static final mockUsers = [
     password: "password",   
     firstName: "Max",          
     lastName: "Mustermann",    
-    adress: UserAddress(
+    address: UserAddress(
       plz: '97000',
       street: 'Musterstraße',
       number: '3',
@@ -26,7 +26,7 @@ static final mockUsers = [
     password: "password",   
     firstName: "John",          
     lastName: "Doe",    
-    adress: UserAddress(
+    address: UserAddress(
       plz: '97001',
       street: 'Hauptstraße',
       number: '10',
@@ -39,7 +39,7 @@ static final mockUsers = [
     password: "password",   
     firstName: "Sarah",          
     lastName: "Müller",    
-    adress: UserAddress(
+    address: UserAddress(
       plz: '97002',
       street: 'Feldstraße',
       number: '25',
@@ -52,7 +52,7 @@ static final mockUsers = [
     password: "password",   
     firstName: "Jane",          
     lastName: "Doe",    
-    adress: UserAddress(
+    address: UserAddress(
       plz: '97003',
       street: 'Bahnhofstraße',
       number: '12',
@@ -65,7 +65,7 @@ static final mockUsers = [
     password: "password",   
     firstName: "Hans",          
     lastName: "Wagner",    
-    adress: UserAddress(
+    address: UserAddress(
       plz: '97004',
       street: 'Kirchstraße',
       number: '4',

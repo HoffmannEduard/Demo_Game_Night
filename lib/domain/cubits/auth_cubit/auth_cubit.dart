@@ -64,7 +64,7 @@ class AuthCubit extends Cubit<AuthState> {
     password: currentState.password,
     firstName: currentState.firstName,
     lastName: currentState.lastName,
-    adress: address
+    address: address
   );
 
   await _userRepo.addUser(newUser);
