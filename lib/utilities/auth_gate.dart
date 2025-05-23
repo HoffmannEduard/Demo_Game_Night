@@ -1,7 +1,5 @@
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
-import 'package:demo_game_night/domain/cubits/game_suggestion_cubit/game_suggestion_cubit.dart';
-import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
 import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
 import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
