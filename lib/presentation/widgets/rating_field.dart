@@ -98,8 +98,8 @@ class RatingField extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    cubit.addRating();
+                  onPressed: () async {
+                    await cubit.addRating();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.amberAccent,
