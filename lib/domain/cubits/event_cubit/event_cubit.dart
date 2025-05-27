@@ -16,12 +16,12 @@ class EventCubit extends Cubit<EventState> {
   EventCubit(this._eventsRepo, this._groupRepo, this.currentUser) : super(EventInitial());
 
   Future<void> loadUpcomingEvents() async {
-    emit(EventInitial());
     try {
       checkDateForEvents();
       _upcomingEvents = await _eventsRepo.getUpcomingEvents(currentUser);
       emit(UpcomingEventLoaded(_upcomingEvents));
-    } catch (_) {
+    } catch (e) {
+      print(e);
       emit(EventError('Fehler beim Laden der Events'));
     }
   }
@@ -64,7 +64,6 @@ class EventCubit extends Cubit<EventState> {
   }
 
   Future<void> loadPastEvents() async {
-    emit(EventInitial());
     try {
       final pastEvents = await _eventsRepo.getPastEvents(currentUser);
       emit(PastEventLoaded(pastEvents));

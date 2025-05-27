@@ -75,7 +75,7 @@ class CreateEventCubit extends Cubit<CreateEventState> {
     state.selectedTime!.minute,
   ); 
     final newEvent = GameNightEvent(
-      id: DateTime.now().microsecondsSinceEpoch, 
+      id: DateTime.now().millisecondsSinceEpoch, 
       name: group.name, 
       groupId: group.id, 
       host: group.members.first, 

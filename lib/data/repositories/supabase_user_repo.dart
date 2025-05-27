@@ -18,6 +18,7 @@ class SupabaseUserRepo implements IUserRepo {
     final addressId = addressInsert['id'];
 
     await supabase.from('users').insert({
+      'id': user.id,
       'username': user.username,
       'password': user.password,
       'firstname': user.firstName,

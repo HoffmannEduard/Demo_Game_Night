@@ -10,45 +10,57 @@ class SupabaseGroupRepo implements IGroupRepo {
   @override
   Future<void> createGroup(Group newGroup) async {
     // 1. Insert group and get the new group id
-    final groupInsert = await supabase.from('groups').insert({
+    await supabase.from('groups').insert({
+      'id': newGroup.id,
       'name': newGroup.name,
-    }).select().single();
-
-    final groupId = groupInsert['id'];
+    });
 
     // 2. Insert members into GroupMembers
     for (final member in newGroup.members) {
       await supabase.from('groupmembers').insert({
-        'group_id': groupId,
+        'group_id': newGroup.id,
         'user_id': member.id,
       });
     }
   }
 
   @override
-  Future<List<Group>> getGroups(my_entities.User user) async {
-    final data = await supabase
-        .from('groups')
-        .select('id, name, groupmembers(user_id, users(id, username, firstname, lastname))');
+Future<List<Group>> getGroups(my_entities.User user) async {
+  // 1. Hole alle Gruppen-IDs, in denen der User Mitglied ist
+  final groupIdsRes = await supabase
+      .from('groupmembers')
+      .select('group_id')
+      .eq('user_id', user.id);
 
-    return (data as List<dynamic>).map((g) => Group(
-      id: g['id'],
-      name: g['name'],
-      members: (g['groupmembers'] as List<dynamic>).map((gm) => my_entities.User(
-        id: gm['users']['id'],
-        username: gm['users']['username'],
-        password: '',
-        firstName: gm['users']['firstname'],
-        lastName: gm['users']['lastname'],
-        address: UserAddress(
-          street: '',
-          number: '',
-          plz: '',
-          location: '',
-        ),
-      )).toList(),
-    )).toList();
-  }
+  final groupIds = (groupIdsRes as List).map((g) => g['group_id']).toList();
+
+  if (groupIds.isEmpty) return [];
+
+  // 2. Hole die Gruppen mit den ermittelten IDs und deren Mitglieder
+  final groupsRes = await supabase
+      .from('groups')
+      .select('id, name, groupmembers(user_id, users(id, username, firstname, lastname))')
+      .inFilter('id', groupIds);
+
+  return (groupsRes as List).map((g) => Group(
+    id: g['id'],
+    name: g['name'],
+    members: (g['groupmembers'] as List<dynamic>).map((gm) => my_entities.User(
+      id: gm['users']['id'],
+      username: gm['users']['username'],
+      password: '',
+      firstName: gm['users']['firstname'],
+      lastName: gm['users']['lastname'],
+      address: UserAddress(
+        street: '',
+        number: '',
+        plz: '',
+        location: '',
+      ),
+    )).toList(),
+  )).toList();
+}
+
 
   @override
   Future<Group> getGroupById(int groupId) async {

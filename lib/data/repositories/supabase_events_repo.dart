@@ -1,5 +1,6 @@
 import 'package:demo_game_night/domain/entities/game_night_event.dart';
 import 'package:demo_game_night/domain/entities/user.dart' as app;
+import 'package:demo_game_night/domain/entities/user_address.dart';
 import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -9,6 +10,7 @@ class SupabaseEventsRepo implements IEventsRepo {
   @override
   Future<void> createEvent(GameNightEvent newEvent) async {
     await supabase.from('gamenightevent').insert({
+      'id': newEvent.id,
       'name': newEvent.name,
       'group_id': newEvent.groupId,
       'host_id': newEvent.host.id,
@@ -27,9 +29,11 @@ class SupabaseEventsRepo implements IEventsRepo {
 
     final groupIds = (groupRes as List).map((g) => g['group_id']).toList();
 
+    if (groupIds.isEmpty) return [];
+
     final eventsRes = await supabase
         .from('gamenightevent')
-        .select('id, name, group_id, host_id, date, recurrence, ispast')
+        .select('id, name, group_id, host_id, date, recurrence, ispast, host:users(id, username, firstname, lastname)')
         .inFilter('group_id', groupIds)
         .eq('ispast', false);
 
@@ -37,7 +41,17 @@ class SupabaseEventsRepo implements IEventsRepo {
       id: e['id'],
       name: e['name'],
       groupId: e['group_id'],
-      host: user,
+      host: app.User(
+        id: e['host']['id'], 
+        username: e['host']['username'], 
+        password: '', 
+        firstName: e['host']['firstname'], 
+        lastName: e['host']['lastname'], 
+        address: UserAddress(
+          plz: '', 
+          street: '', 
+          number: '', 
+          location: '')),
       date: DateTime.parse(e['date']),
       recurrence: e['recurrence'],
       isPast: e['ispast'],
@@ -53,9 +67,11 @@ class SupabaseEventsRepo implements IEventsRepo {
 
     final groupIds = (groupRes as List).map((g) => g['group_id']).toList();
 
+    if (groupIds.isEmpty) return [];
+
     final eventsRes = await supabase
         .from('gamenightevent')
-        .select('id, name, group_id, host_id, date, recurrence, ispast')
+        .select('id, name, group_id, host_id, date, recurrence, ispast, host:users(id, username, firstname, lastname)')
         .inFilter('group_id', groupIds)
         .eq('ispast', true);
 
@@ -63,7 +79,19 @@ class SupabaseEventsRepo implements IEventsRepo {
       id: e['id'],
       name: e['name'],
       groupId: e['group_id'],
-      host: user,
+      host: app.User(
+        id: e['host']['id'],
+        username: e['host']['username'],
+        password: '',
+        firstName: e['host']['firstname'],
+        lastName: e['host']['lastname'],
+        address: UserAddress(
+          plz: '',
+          street: '',
+          number: '',
+          location: '',
+        ),
+      ),
       date: DateTime.parse(e['date']),
       recurrence: e['recurrence'],
       isPast: e['ispast'],

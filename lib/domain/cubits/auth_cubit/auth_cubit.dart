@@ -45,7 +45,6 @@ class AuthCubit extends Cubit<AuthState> {
     } else {
       // Zustand mit Nutzerdaten auf AuthAwaitingAdress setzen
       emit(AuthAwaitingAddress(
-        id: DateTime.now().millisecondsSinceEpoch,
         username: username,
         password: password,
         firstName: firstName,
@@ -59,7 +58,7 @@ class AuthCubit extends Cubit<AuthState> {
   final currentState = state as AuthAwaitingAddress;
 
   final newUser = User(
-    id: DateTime.now().microsecondsSinceEpoch,
+    id: DateTime.now().millisecondsSinceEpoch,
     username: currentState.username,
     password: currentState.password,
     firstName: currentState.firstName,
