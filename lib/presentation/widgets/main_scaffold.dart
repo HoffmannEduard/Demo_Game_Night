@@ -1,5 +1,6 @@
 import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
 import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
+import 'package:demo_game_night/domain/cubits/message_cubit/message_cubit.dart';
 import 'package:demo_game_night/domain/entities/user.dart';
 import 'package:demo_game_night/presentation/screens/event_screen.dart';
 import 'package:demo_game_night/presentation/screens/group_screen.dart';
@@ -44,6 +45,9 @@ void _loadDataForTab(int index) async {
         break;
       case 2:
         await context.read<EventCubit>().loadPastEvents();
+        break;
+      case 3:
+        await context.read<MessageCubit>().loadMessages();
         break;
     }
   }

@@ -17,12 +17,32 @@ class EditMessageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MessageCubit, MessageState>(
+    return BlocConsumer<MessageCubit, MessageState>(
+      listener: (context, state) {
+        if (state.isSuccess) {
+          Navigator.of(context).pop();
+        }
+      },
       builder: (context, state) {
         final cubit = context.read<MessageCubit>();
         return AlertDialog(
           title: Text('Nachricht an: ${event.name}'),
-          content: TextField(controller: _messageController),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(controller: _messageController),
+                if (state.errorMessage != null)
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    state.errorMessage!,
+                    style: TextStyle(color: Colors.red),
+                    ),
+                  )
+              ],
+            ),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -32,7 +52,7 @@ class EditMessageDialog extends StatelessWidget {
               onPressed: () {
                 cubit.updateMessage(_messageController.text.trim());
                 cubit.sendMessage(event.id);
-                Navigator.of(context).pop();
+                
               },
               icon: Icon(Icons.send),
             ),
