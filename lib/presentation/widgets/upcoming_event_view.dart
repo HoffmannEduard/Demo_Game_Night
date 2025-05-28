@@ -1,11 +1,15 @@
 import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
+import 'package:demo_game_night/domain/cubits/message_cubit/message_cubit.dart';
+import 'package:demo_game_night/domain/entities/user.dart';
 import 'package:demo_game_night/presentation/screens/event_detail_screen.dart';
+import 'package:demo_game_night/presentation/widgets/edit_message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class UpcomingEventView extends StatelessWidget {
-  const UpcomingEventView({super.key});
+  final User currentUser;
+  const UpcomingEventView({super.key, required this.currentUser});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,24 @@ class UpcomingEventView extends StatelessWidget {
                         style: TextStyle(fontSize: 16),),
                         Text('Datum: ${DateFormat('dd.MM.yyyy - HH:mm').format(event.date)} Uhr',
                         style: TextStyle(fontSize: 16),),
-                        Text('(${event.recurrence}-Tage Rhythmus)')
+                        Text('(${event.recurrence}-Tage Rhythmus)'),
+// Button um Nachricht für das Event zu versenden
+                        TextButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context, 
+                              builder: (_) {
+                                return BlocProvider.value(
+                                  value: context.read<MessageCubit>(),
+                                child: EditMessageDialog(
+                                  currentUser: currentUser,
+                                  event: event,
+                                  ),
+                                  );
+                              });
+                          }, 
+                          child: Text('Nachricht verfassen'),
+                          )
                       ],
                     ),
                   ),
