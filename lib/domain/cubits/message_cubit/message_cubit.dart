@@ -44,4 +44,8 @@ class MessageCubit extends Cubit<MessageState> {
     emit(state.copyWith(messages: messages));
   }
 
+  void reset() {
+  emit(MessageInitial());
+}
+
 }

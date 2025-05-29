@@ -20,6 +20,7 @@ class EditMessageDialog extends StatelessWidget {
     return BlocConsumer<MessageCubit, MessageState>(
       listener: (context, state) {
         if (state.isSuccess) {
+          context.read<MessageCubit>().reset();
           Navigator.of(context).pop();
         }
       },
@@ -45,7 +46,11 @@ class EditMessageDialog extends StatelessWidget {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                cubit.reset();
+              Navigator.of(context).pop(); 
+
+              },
               child: const Text('Abbrechen'),
             ),
             IconButton(
