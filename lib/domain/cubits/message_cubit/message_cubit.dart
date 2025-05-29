@@ -1,3 +1,4 @@
+import 'package:demo_game_night/domain/entities/game_night_event.dart';
 import 'package:demo_game_night/domain/entities/message.dart';
 import 'package:demo_game_night/domain/entities/user.dart';
 import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
@@ -18,7 +19,7 @@ class MessageCubit extends Cubit<MessageState> {
     emit(state.copyWith(messageText: message));
   }
 
-  Future<void> sendMessage(int eventId) async {
+  Future<void> sendMessage(GameNightEvent event) async {
     if (state.messageText == '') {
       emit(state.copyWith(errorMessage: 'Du kannst keine leere Nachricht versenden'));
       return;
@@ -28,8 +29,10 @@ class MessageCubit extends Cubit<MessageState> {
 
     final newMessage = Message(
       id: DateTime.now().millisecondsSinceEpoch, 
-      eventId: eventId, 
-      userId: currentUser.id, 
+      eventId: event.id, 
+      eventName: event.name,
+      userId: currentUser.id,
+      username: currentUser.username, 
       messageDateTime: DateTime.now(), 
       messageText: state.messageText
       );

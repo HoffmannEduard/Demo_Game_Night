@@ -56,7 +56,7 @@ class EditMessageDialog extends StatelessWidget {
             IconButton(
               onPressed: () {
                 cubit.updateMessage(_messageController.text.trim());
-                cubit.sendMessage(event.id);
+                cubit.sendMessage(event);
                 
               },
               icon: Icon(Icons.send),
