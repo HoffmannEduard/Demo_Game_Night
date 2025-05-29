@@ -1,10 +1,10 @@
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_game_night/domain/cubits/event_cubit/event_cubit.dart';
-import 'package:demo_game_night/domain/cubits/game_suggestion_cubit/game_suggestion_cubit.dart';
-import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
 import 'package:demo_game_night/domain/cubits/group_cubit/group_cubit.dart';
+import 'package:demo_game_night/domain/cubits/message_cubit/message_cubit.dart';
 import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
+import 'package:demo_game_night/domain/i_repos/i_message_repo.dart';
 import 'package:demo_game_night/presentation/screens/login_screen.dart';
 import 'package:demo_game_night/presentation/widgets/main_scaffold.dart';
 import 'package:flutter/widgets.dart';
@@ -35,6 +35,13 @@ class AuthGate extends StatelessWidget {
               user,
             ),
           ),
+          BlocProvider(
+            create: (ctx) => MessageCubit(
+              messageRepo: ctx.read<IMessageRepo>(),
+              eventRepo: ctx.read<IEventsRepo>(),
+              currentUser: user
+            )
+            ),
         ],
 //MainScaffold bietet die NavigationBar (Navigation über Icons am unteren Bildschirmrand) an
         child: MainScaffold(currentUser: user),

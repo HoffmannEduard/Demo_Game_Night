@@ -1,5 +1,6 @@
 import 'package:demo_game_night/data/repositories/fake_events_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_group_repo.dart';
+import 'package:demo_game_night/data/repositories/fake_message_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_rating_repo.dart';
 import 'package:demo_game_night/data/repositories/fake_user_repo.dart';
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:demo_game_night/domain/cubits/game_suggestion_cubit/game_suggest
 import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
 import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
+import 'package:demo_game_night/domain/i_repos/i_message_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_rating_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_user_repo.dart';
 import 'package:demo_game_night/utilities/app_theme.dart';
@@ -20,6 +22,7 @@ void main() async {
   final IGroupRepo groupRepo = FakeGroupRepo();
   final IEventsRepo eventsRepo = FakeEventsRepo();
   final IRatingRepo ratingRepo = FakeRatingRepo();
+  final IMessageRepo messageRepo = FakeMessageRepo();
 
   runApp(
 
@@ -30,6 +33,7 @@ void main() async {
         RepositoryProvider<IGroupRepo>.value(value: groupRepo,),
         RepositoryProvider<IEventsRepo>.value(value: eventsRepo,),
         RepositoryProvider<IRatingRepo>.value(value: ratingRepo),
+        RepositoryProvider<IMessageRepo>.value(value: messageRepo)
 
       ], 
       child: MyApp()
