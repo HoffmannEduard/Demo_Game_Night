@@ -1,9 +1,9 @@
 import 'package:demo_game_night/data/repositories/supabase_events_repo.dart';
 import 'package:demo_game_night/data/repositories/supabase_game_suggestion_repo.dart';
 import 'package:demo_game_night/data/repositories/supabase_group_repo.dart';
+import 'package:demo_game_night/data/repositories/supabase_message_repo.dart';
 import 'package:demo_game_night/data/repositories/supabase_rating_repo.dart';
 import 'package:demo_game_night/data/repositories/supabase_user_repo.dart';
-import 'package:demo_game_night/data/repositories/fake_message_repo.dart';
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_game_night/domain/cubits/game_suggestion_cubit/game_suggestion_cubit.dart';
 import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
@@ -31,7 +31,7 @@ Future<void> main() async {
   final IEventsRepo eventsRepo = SupabaseEventsRepo();
   final IGameSuggestionRepo gameSuggestionRepo = SupabaseGameSuggestionRepo();
   final IRatingRepo ratingRepo = SupabaseRatingRepo();
-  final IMessageRepo messageRepo = FakeMessageRepo();
+  final IMessageRepo messageRepo = SupabaseMessageRepo();
 
   runApp(
 
