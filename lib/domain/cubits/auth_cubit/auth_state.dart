@@ -10,14 +10,14 @@ sealed class AuthState extends Equatable {
 class AuthInitial extends AuthState {}
 
 class AuthAwaitingAddress extends AuthState {
-  final int id;
+  final int? id;
   final String username;
   final String password;
   final String firstName;
   final String lastName;
 
   const AuthAwaitingAddress({
-    required this.id,
+    this.id,
     required this.username,
     required this.password,
     required this.firstName,

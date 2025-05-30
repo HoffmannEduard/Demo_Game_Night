@@ -51,9 +51,9 @@ class HostDetails extends StatelessWidget {
                 fontSize: 16),),
                 Column(
                   children: [
-                    Text('${event.host.adress.plz} ${event.host.adress.location}',
+                    Text('${event.host.address.plz} ${event.host.address.location}',
                     style: TextStyle(fontSize: 16,),),
-                    Text('${event.host.adress.street} ${event.host.adress.number}',
+                    Text('${event.host.address.street} ${event.host.address.number}',
                     style: TextStyle(fontSize: 16,),)
                   ],
                 ),

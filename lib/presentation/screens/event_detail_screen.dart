@@ -21,6 +21,15 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
   final TextEditingController _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    // Load suggestions when the screen is first shown
+    context.read<GameSuggestionCubit>().loadSuggestions(widget.event.id);
+    // Load votes
+    context.read<GameVoteCubit>().loadVotesForEvent(widget.event.id);
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -33,7 +42,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     );
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -72,8 +81,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                   builder: (context, votes) {
                     return ListView(
                       children: eventSuggestions.map((s) {
-                        // Use the index in the global suggestions list as suggestionId
-                        final suggestionId = context.read<GameSuggestionCubit>().state.indexOf(s);
+                        final suggestionId = s.id; // Use real DB id!
                         final voteCount = votes.where((v) => v.suggestionId == suggestionId).length;
                         return ListTile(
                           title: Text(s.suggestion),
@@ -85,20 +93,28 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                               IconButton(
                                 icon: Icon(Icons.thumb_up),
                                 tooltip: 'Abstimmen',
-                                onPressed: () {
+                                onPressed: () async {
                                   final authState = context.read<AuthCubit>().state;
                                   int? userId;
                                   if (authState is AuthSuccess) {
                                     userId = authState.user.id;
                                   }
                                   if (userId != null) {
-                                    context.read<GameVoteCubit>().vote(
-                                      GameVote(
-                                        suggestionId: suggestionId,
-                                        eventId: widget.event.id,
-                                        userId: userId,
-                                      ),
-                                    );
+                                    final alreadyVoted = await context.read<GameVoteCubit>().hasUserVoted(suggestionId, userId);
+                                    if (!alreadyVoted) {
+                                      await context.read<GameVoteCubit>().vote(
+                                        GameVote(
+                                          suggestionId: suggestionId,
+                                          eventId: widget.event.id,
+                                          userId: userId,
+                                        ),
+                                      );
+                                      await context.read<GameVoteCubit>().loadVotesForEvent(widget.event.id);
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Du hast bereits abgestimmt!')),
+                                      );
+                                    }
                                   }
                                 },
                               ),
@@ -116,7 +132,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showSuggestionDialog,
-        tooltip: 'Spiel vorschlagen',
+        tooltip: 'Neuen Vorschlag hinzufügen',
         child: Icon(Icons.add),
       ),
     );

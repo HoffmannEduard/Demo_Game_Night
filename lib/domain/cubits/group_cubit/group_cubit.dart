@@ -14,7 +14,6 @@ class GroupCubit extends Cubit<GroupState> {
 
   // Alle Gruppen abrufen
   Future<void> loadGroups() async {
-    emit(GroupInitial());
   try {
     final userGroups = await _groupRepo.getGroups(currentUser);
     emit(GroupLoaded(userGroups));

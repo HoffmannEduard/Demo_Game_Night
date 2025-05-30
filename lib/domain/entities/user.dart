@@ -6,7 +6,7 @@ class User {
   String password;
   String firstName;
   String lastName;
-  UserAddress adress;
+  UserAddress address;
 
   User({
     required this.id,
@@ -14,7 +14,7 @@ class User {
     required this.password,
     required this.firstName,
     required this.lastName,
-    required this.adress
+    required this.address
   });
 
 }

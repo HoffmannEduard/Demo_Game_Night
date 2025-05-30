@@ -66,6 +66,7 @@ class RatingCubit extends Cubit<RatingState> {
   }
 
   Future<void> addRating() async {
+    
     //TODO Validierung implementieren
     final newRating = Rating(
       id: DateTime.now().millisecondsSinceEpoch, 
@@ -75,7 +76,12 @@ class RatingCubit extends Cubit<RatingState> {
       ratingFood: state.foodRating,
       ratingEvent: state.eventRating
       );
+
+      try {
     await ratingRepo.addRating(newRating);
+      } catch (e) {
+        print(e);
+      }
     await loadAverageRatings();
     emit(state.copyWith(userRatedForEvent: true));
   }
