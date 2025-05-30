@@ -3,12 +3,14 @@ import 'package:demo_game_night/data/repositories/supabase_game_suggestion_repo.
 import 'package:demo_game_night/data/repositories/supabase_group_repo.dart';
 import 'package:demo_game_night/data/repositories/supabase_rating_repo.dart';
 import 'package:demo_game_night/data/repositories/supabase_user_repo.dart';
+import 'package:demo_game_night/data/repositories/fake_message_repo.dart';
 import 'package:demo_game_night/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:demo_game_night/domain/cubits/game_suggestion_cubit/game_suggestion_cubit.dart';
 import 'package:demo_game_night/domain/cubits/game_vote/game_vote_cubit.dart';
 import 'package:demo_game_night/domain/i_repos/i_events_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_game_suggestion_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_group_repo.dart';
+import 'package:demo_game_night/domain/i_repos/i_message_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_rating_repo.dart';
 import 'package:demo_game_night/domain/i_repos/i_user_repo.dart';
 import 'package:demo_game_night/utilities/app_theme.dart';
@@ -29,6 +31,7 @@ Future<void> main() async {
   final IEventsRepo eventsRepo = SupabaseEventsRepo();
   final IGameSuggestionRepo gameSuggestionRepo = SupabaseGameSuggestionRepo();
   final IRatingRepo ratingRepo = SupabaseRatingRepo();
+  final IMessageRepo messageRepo = FakeMessageRepo();
 
   runApp(
 
@@ -40,6 +43,7 @@ Future<void> main() async {
         RepositoryProvider<IEventsRepo>.value(value: eventsRepo,),
         RepositoryProvider<IGameSuggestionRepo>.value(value: gameSuggestionRepo,),
         RepositoryProvider<IRatingRepo>.value(value: ratingRepo),
+        RepositoryProvider<IMessageRepo>.value(value: messageRepo)
 
       ], 
       child: MyApp()

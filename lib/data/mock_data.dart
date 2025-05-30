@@ -1,5 +1,6 @@
 import 'package:demo_game_night/domain/entities/game_night_event.dart';
 import 'package:demo_game_night/domain/entities/group.dart';
+import 'package:demo_game_night/domain/entities/message.dart';
 import 'package:demo_game_night/domain/entities/rating.dart';
 import 'package:demo_game_night/domain/entities/user.dart';
 import 'package:demo_game_night/domain/entities/user_address.dart';
@@ -115,5 +116,7 @@ static final mockGameNightEvents = [
 ];
 
 static final List<Rating> mockRatings = [];
+
+static final List<Message> mockMessage = []; 
 
 }

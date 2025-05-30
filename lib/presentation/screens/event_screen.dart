@@ -28,7 +28,7 @@ class EventScreen extends StatelessWidget {
               ),
             ),
           ),
-            Expanded(child: UpcomingEventView()),
+            Expanded(child: UpcomingEventView(currentUser: currentUser,)),
           ],
         ),
       );
