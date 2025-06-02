@@ -33,7 +33,7 @@ class SupabaseEventsRepo implements IEventsRepo {
 
     final eventsRes = await supabase
         .from('gamenightevent')
-        .select('id, name, group_id, host_id, date, recurrence, ispast, host:users(id, username, firstname, lastname)')
+        .select('id, name, group_id, host_id, date, recurrence, ispast, host:users(id, username, firstname, lastname, address:address_id(plz, street, number, location))')
         .inFilter('group_id', groupIds)
         .eq('ispast', false);
 
@@ -48,10 +48,11 @@ class SupabaseEventsRepo implements IEventsRepo {
         firstName: e['host']['firstname'], 
         lastName: e['host']['lastname'], 
         address: UserAddress(
-          plz: '', 
-          street: '', 
-          number: '', 
-          location: '')),
+          plz: e['host']['address']['plz'],
+          street: e['host']['address']['street'],
+          number: e['host']['address']['number'],
+          location: e['host']['address']['location'],)
+          ),
       date: DateTime.parse(e['date']),
       recurrence: e['recurrence'],
       isPast: e['ispast'],
