@@ -1,16 +1,17 @@
-# demo_game_night
+# Board-Gamer-App
 
-A new Flutter project.
+**Projekt: Mobile Software Engineering**
+Mobile App zur Organisation, Bewertung und Abstimmung von Spieleabenden.
 
-## Getting Started
+## Tech Stack
 
-This project is a starting point for a Flutter application.
+**Flutter** und **Dart** - UI Framework
+**BloC (Business Logic Component)** - State Management
+**Supabase** - Backend-as-a-Service als Datenbank
 
-A few resources to get you started if this is your first Flutter project:
+## Testzugang
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Zum Testen der Anwendung steht folgendes Benutzerkonto bereit:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Benutzername:** 'testuser'
+**Passwort:** 'password'
